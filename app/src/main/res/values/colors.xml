@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3f51b5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="background_color">#009688</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="white_greyish">#EEEEEE</color>
+    <color name="button_selectorcolor">#9E9E9E</color>
+    <color name="bg_login">#26ae90</color>
+    <color name="bg_register">#2e3237</color>
+    <color name="bg_main">#428bca</color>
+    <color name="input_login">#222222</color>
+    <color name="input_login_hint">#999999</color>
+    <color name="input_register">#888888</color>
+    <color name="input_register_bg">#3b4148</color>
+    <color name="input_register_hint">#5e6266</color>
+    <color name="btn_login">#1fe4dd</color>
+    <color name="btn_login_bg">#eceef1</color>
+    <color name="lbl_name">#333333</color>
+    <color name="btn_logut_bg">#ff6861</color>
+    <color name="dark_background">#d3292727</color>
+    <color name="Transperent">#80FFFFFF</color>
+
+    <color name="color1">#ff0000</color>
+    <color name="color2">#00ff00</color>
+    <color name="color4">#ffff00</color>
+
+    <color name="sky_blue_color">#007aff</color>
+
+    <color name="grey_topbar">#d3d3d3</color>
+    <color name="elephant_color">#484848</color>
+    <color name="grey">#c3c3c3</color>
+    <color name="transparent">#00000000</color>
+
+
+    <color name="catgreen">#30820c</color>
+
+    <color name="new_top_bar">#f3f3f3</color>
+    <color name="app_background">#e1e1e1</color>
+    <color name="top_divider">#9d9d9d</color>
+    <color name="rr_color">#cccccc</color>
+
+
+    <color name="transpar">#00d3d3d3</color>
+    <color name="colorTransperentWhite">#cccccc</color>
+</resources>

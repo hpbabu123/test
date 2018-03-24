@@ -1,0 +1,126 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:fillViewport="false">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context="com.example.homepage.skillindia.fragment.HomeFragment"
+        android:orientation="vertical">
+
+
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="43dp"
+            android:padding="10dp"
+            android:text="WHAT IS PMKVY?"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="55dp"
+            android:text="   Pradhan Mantri Sri Narendra Modi has launched Pradhan Mantri Kaushal Vikas Yojana PMKVY scheme (skill development scheme) to enhance our country and to provide skills training to youth all over the country. \n
+            India is the country with the most youth population in the world and youth are indeed the future of the country, they need proper training and skills to become assets for themselves as well as the nation, so the motto of the PMKVY scheme is to achieve the same. Its flagship scheme for skill training of youth to be implemented by the Ministry of skill development and Entrepreneurship through the National Skill Development Corporation (NSDC). \b
+            The skill development training is done based on National Skill Qualification (NSQF) and industry-led standards, this scheme will cover 24 lakh persons. \n
+            On this scheme, a monetary reward is given to trainees on assessment and certification by third-party assessment bodies and the monetary reward will be around Rs. 8000 per trainee. \n"
+            android:textColor="@color/black" />
+        >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignEnd="@+id/textView"
+            android:layout_alignParentTop="true"
+            android:text="SCOPE OF PMKVY:"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignEnd="@+id/textView"
+            android:layout_alignParentTop="true"
+            android:text="Encourage Standardization in the certification process
+Provide Monetary Awards to the candidates who complete the course successfully
+Training for self – employment development
+Adult learning, retiring employees and lifelong learning institutional based skill development including vocational schools/ ITCs/ ITIS/ polytechnics
+Web-based learning, E-learning and distance learning"
+            android:textColor="@color/black"></TextView>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignEnd="@+id/textView"
+            android:layout_alignParentTop="true"
+            android:text="Objective_of_the_pmkvy"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignEnd="@+id/textView"
+            android:layout_alignParentTop="true"
+            android:text="Create opportunities for all to acquire skills, especially for youth, women and disadvantaged groups (Scheduled Castes, Scheduled Tribes, and Other Backward Classes)
+    Promote commitment by all stakeholders to own skill development initiatives.
+    Develop a high-quality skilled workforce that will help emerging employment market needs
+    Enable effective coordination between different ministries, the Centre and the States and public and private providers"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"></TextView>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="394dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView"
+            android:layout_alignParentTop="true"
+            android:text="Eligible for PMKVY:"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView"
+            android:layout_alignParentTop="true"
+            android:text="One of the core Eligibility criterions for any candidates to be enrolled in the scheme is that they must be an Indian National by status of residence and who
+
+    To be enrolled in a skill development training program.
+    Wants to work in an eligible sector
+    When the scheme is launched, should be certified for a period of one year from the time.
+    To get the reward as money for the first and only time during his whole life.
+
+"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"></TextView>
+    </LinearLayout>
+</ScrollView>

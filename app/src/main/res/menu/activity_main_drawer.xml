@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="@string/nav_home" />
+        <item
+            android:id="@+id/nav_news"
+            android:title="@string/nav_news" />
+        <item
+            android:id="@+id/nav_apply_for_trainee"
+
+            android:title="@string/nav_applyfortrainee" />
+        <item
+            android:id="@+id/login"
+            android:title="Login as Trainee"/>
+        <item
+            android:id="@+id/TC"
+            android:title="Login as Training Centre"/>
+        <item
+            android:id="@+id/courselist"
+            android:title="Course List"/>
+        <item
+            android:id="@+id/findTC"
+            android:title="Find Nearby Training Centre"/>
+
+    </group>
+
+
+
+
+
+</menu>

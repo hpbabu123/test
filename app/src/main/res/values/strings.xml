@@ -1,0 +1,120 @@
+<resources>
+    <string name="app_name">SkillIndia</string>
+
+    <!--Login and Signup Form-->
+
+    <string name="email">Email Id</string>
+    <string name="passowrd">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="show_pwd">Show Password</string>
+    <string name="hide_pwd">Hide Password</string>
+    <string name="forgot">Forgot password?</string>
+    <string name="closebutton">Close Button for Activity</string>
+    <string name="newUser">Not a Member yet? Sign Up here.</string>
+    <string name="fullName">Full Name</string>
+    <string name="mobileNumber">Mobile Number</string>
+    <string name="Age">Age</string>
+    <string name="location">Location</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="terms_conditions">By clicking SignUp you agree all the Terms and Conditions.</string>
+    <string name="signUp">SIGN UP</string>
+    <string name="already_user">Already have Account? Login here.</string>
+    <string name="registered_emailid">Please enter your Registered Email Id below:</string>
+    <string name="submit">SUBMIT</string>
+    <string name="back">BACK</string>
+    <string name="indian_flag">Indian Flag</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Fullname</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_register">REGISTER</string>
+    <string name="btn_link_to_register">Not a member? Sign up now.</string>
+    <string name="btn_link_to_login">Already registred! Login Me.</string>
+
+    <string name="btn_logout">LOGOUT</string>
+    <string name="name">Fullname</string>
+
+
+    <string name="login_as_trainee">Login as Trainee</string>
+    <string name="become_a_trainee">Become a Trainee</string>
+    <string name="or">OR</string>
+    <string name="skip">SKIP >> </string>
+    <string name="next">Next</string>
+    <string name="find_nearby_training_centres">Find Nearby Training Centres</string>
+
+    <string name="home">Home</string>
+    <string name="TC_list">Training Centres list</string>
+    <string name="news">News</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_news">News</string>
+    <string name="nav_applyfortrainee">Apply for trainee</string>
+    <string name="course">Course</string>
+
+
+    <!-- Toolbar titles when navigation menu item is selected -->
+    <string-array name="nav_item_activity_titles">
+        <item>Home</item>
+        <item>News</item>
+        <item>Apply for trainee</item>
+        <item>Login as Trainee</item>
+        <item>Login as Training Centre</item>
+        <item>Course List</item>
+        <item>FIND NEARBY TC</item>
+    </string-array>
+
+    <string-array name="nav_item_trainee_activity_titles">
+        <item>Home</item>
+        <item>News</item>
+        <item>Webinars</item>
+        <item>Attendance</item>
+        <item>Reviews</item>
+        <item>Certificates</item>
+        <item>Profile</item>
+    </string-array>
+    <string name="action_logout">Logout</string>
+
+    <string-array name="State_items">
+
+        <item>Madhya Pradesh</item>
+        <item>Delhi</item>
+        <item>Gujrat</item>
+        <item>Chattisgarh</item>
+        <item>Maharashtra</item>
+    </string-array>
+    <string-array name="Maharashtra_items">
+        <item>Nagpur</item>
+        <item>Mumbai</item>
+        <item>Amravati</item>
+    </string-array>
+    <string-array name="MadhyaPradesh_items">
+        <item>Bhopal</item>
+        <item>Jabalpur</item>
+        <item></item>
+    </string-array>
+    <string-array name="Chattisgarh_items">
+        <item>Rajnandgaon</item>
+        <item>Raipur</item>
+        <item>Bhilai</item>
+    </string-array>
+    <string-array name="Delhi_items">
+        <item>Delhi</item>
+        <item>Noida</item>
+        <item>New  Delhi</item>
+    </string-array>
+    <string-array name="Gujrat_items">
+        <item>Ahmadabad</item>
+        <item>Gandhinagar</item>
+        <item>Surat</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

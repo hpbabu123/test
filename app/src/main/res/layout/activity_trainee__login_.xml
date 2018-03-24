@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/india"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="259dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <!-- Login Button -->
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="fill_parent"
+            android:layout_height="69dp"
+            android:layout_marginTop="20dip"
+            android:background="@drawable/curvebtn"
+            android:text="@string/login_as_trainee"
+            android:textColor="@color/dark_background"
+            android:textSize="24sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="33dp"
+            android:layout_marginTop="28dip"
+            android:background="@null"
+            android:fadingEdge="horizontal"
+            android:text="@string/or"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnLinkToRegisterScreen"
+            android:layout_width="fill_parent"
+            android:layout_height="75dp"
+            android:layout_marginTop="20dip"
+            android:background="@drawable/curvebtn"
+            android:text="@string/become_a_trainee"
+            android:textColor="@color/dark_background"
+            android:textSize="24sp"
+            android:textStyle="bold|italic" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/TC"
+        android:layout_width="268dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="#00ff0000"
+        android:text="LOGIN AS TRAINING CENTRE"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/skip"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:background="#00ff0000"
+            android:text="@string/skip"
+            />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
