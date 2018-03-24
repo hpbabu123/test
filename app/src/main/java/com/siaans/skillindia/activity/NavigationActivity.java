@@ -1,6 +1,7 @@
 package com.siaans.skillindia.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -27,7 +28,9 @@ import com.siaans.skillindia.fragment.HomeFragment;
 import com.siaans.skillindia.fragment.NewsFragment;
 
 public class NavigationActivity extends AppCompatActivity {
-
+    public SharedPreferences.Editor loginPrefsEditor;
+    public  SharedPreferences loginPreferences;
+    private Boolean saveLogin;
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private Toolbar toolbar;
@@ -54,6 +57,27 @@ public class NavigationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
+
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
+
+
+
+        if (saveLogin == true) {
+            String type = loginPreferences.getString("lgn", String.valueOf(true));
+            if(type.equals("Trainee")) {
+                Intent n = new Intent(NavigationActivity.this, TraineeNavActivity.class);
+                startActivity(n);
+                finish();
+            }else{
+                //to tc
+//                Intent n = new Intent(NavigationActivity.this, .class);
+//                startActivity(n);
+//                finish();
+            }
+
+        }
         setContentView(R.layout.activity_navigation);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

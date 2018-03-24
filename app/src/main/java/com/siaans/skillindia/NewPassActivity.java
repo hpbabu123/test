@@ -1,5 +1,6 @@
 package com.siaans.skillindia;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,8 @@ public class NewPassActivity extends AppCompatActivity {
     private static TextView submit;
     private static Animation shake;
     private static LinearLayout forget;
+    ProgressBar send;
+    String res,flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,7 @@ public class NewPassActivity extends AppCompatActivity {
         //intizaling the variables
         npass = findViewById(R.id.npass);
         submit = findViewById(R.id.npass_submit);
+        send=findViewById(R.id.submiting);
         shake = AnimationUtils.loadAnimation(this,R.anim.shake);
         forget = findViewById(R.id.newpass_Layout);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -44,14 +49,33 @@ public class NewPassActivity extends AppCompatActivity {
     private void submitButtonTask() {
         Intent i=getIntent();
         Bundle bun=i.getExtras();
-        NewPassActivity.BackgroundTask b = new NewPassActivity.BackgroundTask();
-        b.execute(bun.getString("Email"),bun.getString("flag"));
+        Boolean pass=validatePassword(npass.getText().toString());
+        flag=bun.getString("flag");
+        if(pass) {
+            NewPassActivity.BackgroundTask b = new NewPassActivity.BackgroundTask(this);
+            b.execute(bun.getString("Email"), bun.getString("flag"));
+        }
     }
-
+    private boolean validatePassword(String string) {
+        if (string.equals("")) {
+            Toast.makeText(this,"Enter Your Password",Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (string.length() > 32) {
+            Toast.makeText(this,"Maximum 32 Characters",Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (string.length() < 8) {
+            Toast.makeText(this,"Minimum 8 Characters",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
     class BackgroundTask extends AsyncTask<String,Void,String> {
-
+        Context ctx;
         String add_info_url;
 
+        BackgroundTask(Context ctx){
+            this.ctx=ctx;
+        }
         @Override
         protected void onPreExecute() {
             add_info_url = "http://159.65.144.10/miniproject/update.php";
@@ -77,30 +101,7 @@ public class NewPassActivity extends AppCompatActivity {
                         while ((inputLine = in.readLine()) != null) {
                             response.append(inputLine);
                         }
-                        if(response.toString().equals("Updated")) {
-                            if(args[1].equals("1")) {
-                                Intent i = new Intent(NewPassActivity.this, TCloginActivity.class);
-                                startActivity(i);
-                                finish();
-                            }
-                            else{
-                                Intent i = new Intent(NewPassActivity.this, Trainee_Login_Activity.class);
-                                startActivity(i);
-                                finish();
-                            }
-
-                        }else{
-                            if(args[1].equals("1")) {
-                                Intent i = new Intent(NewPassActivity.this, TCloginActivity.class);
-                                startActivity(i);
-                                finish();
-                            }
-                            else{
-                                Intent i = new Intent(NewPassActivity.this, Trainee_Login_Activity.class);
-                                startActivity(i);
-                                finish();
-                            }
-                        }
+                        res=response.toString();
                         in.close();
                         return response.toString();
                 }
@@ -115,7 +116,32 @@ public class NewPassActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String r) {
+            if(res.toString().equals("Updated")) {
+                Toast.makeText(ctx,"Password updated",Toast.LENGTH_SHORT).show();
+                if(flag.equals("1")) {
+                    Intent i = new Intent(NewPassActivity.this, TCloginActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+                else{
+                    Intent i = new Intent(NewPassActivity.this, Trainee_Login_Activity.class);
+                    startActivity(i);
+                    finish();
+                }
 
+            }else{
+                Toast.makeText(ctx,"Not updated! Internal Server Error",Toast.LENGTH_SHORT).show();
+                if(flag.equals("1")) {
+                    Intent i = new Intent(NewPassActivity.this, TCloginActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+                else{
+                    Intent i = new Intent(NewPassActivity.this, Trainee_Login_Activity.class);
+                    startActivity(i);
+                    finish();
+                }
+            }
         }
     }
 }
