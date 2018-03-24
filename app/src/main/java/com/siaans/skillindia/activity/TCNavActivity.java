@@ -30,7 +30,7 @@ import com.siaans.skillindia.fragment.JobFragment;
 import com.siaans.skillindia.fragment.NewsFragment;
 import com.siaans.skillindia.fragment.ProfileFragment;
 import com.siaans.skillindia.fragment.TraineeHomeFragment;
-//import com.siaans.skillindia.fragment.VarificationFragment;
+import com.siaans.skillindia.fragment.VarificationFragment;
 import com.siaans.skillindia.fragment.WebinarsFragment;
 import com.siaans.skillindia.other.CircleTransform;
 
@@ -170,9 +170,9 @@ public class TCNavActivity extends AppCompatActivity {
             case 4:
                 BatchFragment batchFragment= new BatchFragment();
                 return batchFragment;
-           // case 5:
-             //   VarificationFragment varificationFragment= new VarificationFragment();
-             //   return varificationFragment;
+            case 5:
+                VarificationFragment varificationFragment= new VarificationFragment();
+                return varificationFragment;
             case 6:
                 JobFragment jobFragment = new JobFragment();
                 return jobFragment;
