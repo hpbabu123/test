@@ -211,7 +211,7 @@ public class TCloginActivity extends AppCompatActivity {
                 loginPrefsEditor.commit();
                 Intent intent = new Intent(TCloginActivity.this, TCNavActivity.class);
                 startActivity(intent);
-                finish();
+                finishAffinity ();
 
             }
 

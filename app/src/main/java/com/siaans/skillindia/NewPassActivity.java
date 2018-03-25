@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -24,14 +25,15 @@ public class NewPassActivity extends AppCompatActivity {
     private static TextView submit;
     private static Animation shake;
     private static LinearLayout forget;
-    ProgressBar send;
     String res,flag;
+    ProgressBar send;String email,pass1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_pass);
         //intizaling the variables
+        send=findViewById(R.id.submiting);
         npass = findViewById(R.id.npass);
         submit = findViewById(R.id.npass_submit);
         send=findViewById(R.id.submiting);
@@ -47,6 +49,10 @@ public class NewPassActivity extends AppCompatActivity {
 
 
     private void submitButtonTask() {
+        send.setVisibility(View.VISIBLE);
+        send.setIndeterminate(true);
+        submit.setVisibility(View.INVISIBLE);
+        submit.setEnabled(false);
         Intent i=getIntent();
         Bundle bun=i.getExtras();
         Boolean pass=validatePassword(npass.getText().toString());
@@ -58,12 +64,24 @@ public class NewPassActivity extends AppCompatActivity {
     }
     private boolean validatePassword(String string) {
         if (string.equals("")) {
+            send.setVisibility(View.INVISIBLE);
+            send.setIndeterminate(false);
+            submit.setVisibility(View.VISIBLE);
+            submit.setEnabled(true);
             Toast.makeText(this,"Enter Your Password",Toast.LENGTH_SHORT).show();
             return false;
         } else if (string.length() > 32) {
+            send.setVisibility(View.INVISIBLE);
+            send.setIndeterminate(false);
+            submit.setVisibility(View.VISIBLE);
+            submit.setEnabled(true);
             Toast.makeText(this,"Maximum 32 Characters",Toast.LENGTH_SHORT).show();
             return false;
         } else if (string.length() < 8) {
+            send.setVisibility(View.INVISIBLE);
+            send.setIndeterminate(false);
+            submit.setVisibility(View.VISIBLE);
+            submit.setEnabled(true);
             Toast.makeText(this,"Minimum 8 Characters",Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -130,6 +148,10 @@ public class NewPassActivity extends AppCompatActivity {
                 }
 
             }else{
+                send.setVisibility(View.INVISIBLE);
+                send.setIndeterminate(false);
+                submit.setVisibility(View.VISIBLE);
+                submit.setEnabled(true);
                 Toast.makeText(ctx,"Not updated! Internal Server Error",Toast.LENGTH_SHORT).show();
                 if(flag.equals("1")) {
                     Intent i = new Intent(NewPassActivity.this, TCloginActivity.class);

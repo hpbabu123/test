@@ -179,6 +179,7 @@ public class NavigationActivity extends AppCompatActivity {
             case 4:
                 Intent intent2 =new Intent(NavigationActivity.this, TCloginActivity.class);
                 startActivity(intent2);
+
                 navItemIndex=0;
                 CURRENT_TAG=TAG_HOME;
                 loadHomeFragment();

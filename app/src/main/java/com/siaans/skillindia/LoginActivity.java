@@ -200,7 +200,7 @@ public class LoginActivity extends AppCompatActivity {
                 buff.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
-
+                Log.d("iuh", "doInBackground: "+r.toString());
                 return r;
 
             }catch (Exception e){
@@ -215,6 +215,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String r) {
+            Log.d("", "onPostExecute: "+r);
             if(r.equals("Wrong Username or Password")){
                 send.setVisibility(View.INVISIBLE);
                 send.setIndeterminate(false);
@@ -230,8 +231,12 @@ public class LoginActivity extends AppCompatActivity {
                 loginPrefsEditor.putString("lgn","Trainee");
                 loginPrefsEditor.commit();
                 Intent intent = new Intent(LoginActivity.this, TraineeNavActivity.class);
-                    startActivity(intent);
-                    finish();
+                Bundle b=new Bundle();
+                b.putString("json",r);
+                intent.putExtras(b);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finishAffinity ();
 
             }
 
