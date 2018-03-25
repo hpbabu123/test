@@ -28,13 +28,4 @@
 
     </group>
 
-    <item android:title="Other">
-        <menu>
-            <item
-                android:id="@+id/nav_logout"
-                android:title="nav_logout" />
-
-        </menu>
-    </item>
-
 </menu>
