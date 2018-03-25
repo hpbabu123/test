@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_trainee_home"
-            android:title="@string/nav_home" />
+            android:id="@+id/nav_Profile"
+            android:title="Profile"/>
         <item
             android:id="@+id/nav_news"
 
@@ -24,19 +24,8 @@
             android:id="@+id/nav_Certificates"
 
             android:title="Certificates" />
-        <item
-            android:id="@+id/nav_Profile"
-            android:title="Profile"/>
+
 
     </group>
-
-    <item android:title="Other">
-        <menu>
-            <item
-                android:id="@+id/nav_logout"
-                android:title="nav_logout" />
-
-        </menu>
-    </item>
 
 </menu>

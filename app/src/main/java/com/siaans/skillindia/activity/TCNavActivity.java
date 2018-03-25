@@ -26,17 +26,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.siaans.skillindia.ExDialog;
 import com.siaans.skillindia.LoginActivity;
 import com.siaans.skillindia.R;
 import com.siaans.skillindia.fragment.AttendanceFragment;
 import com.siaans.skillindia.fragment.BatchFragment;
-import com.siaans.skillindia.fragment.CertificateFragment;
-import com.siaans.skillindia.fragment.HomeFragment;
 import com.siaans.skillindia.fragment.JobFragment;
 import com.siaans.skillindia.fragment.NewsFragment;
 import com.siaans.skillindia.fragment.ProfileFragment;
-import com.siaans.skillindia.fragment.ReviewsFragment;
-import com.siaans.skillindia.fragment.TraineeHomeFragment;
 import com.siaans.skillindia.fragment.VarificationFragment;
 import com.siaans.skillindia.fragment.WebinarsFragment;
 import com.siaans.skillindia.other.CircleTransform;
@@ -46,14 +43,13 @@ public class TCNavActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
-    private ImageView imgNavHeaderBg, imgProfile;
+    private ImageView imgNavHeaderBg;//, imgProfile;
     private TextView txtName, txtWebsite;
     private Toolbar toolbar;
     private FloatingActionButton fab;
 
     public static int navItemIndex = 0;
 
-    private static final String TAG_HOME = "home";
     private static final String TAG_NEWS = "news";
     private static final String TAG_WEBINAR="webinar";
     private static final String TAG_ATTEND="attendance";
@@ -61,10 +57,10 @@ public class TCNavActivity extends AppCompatActivity {
     private static final String TAG_VARIFICATION="varification";
     private static final String TAG_JOB="job";
     private static final String TAG_PROFILE="profile";
-    public static String CURRENT_TAG = TAG_HOME;
+    public static String CURRENT_TAG = TAG_PROFILE;
 
     private static final String urlNavHeaderBg = "https://api.androidhive.info/images/nav-menu-header-bg.jpg";
-    private static final String urlProfileImg = "https://lh3.googleusercontent.com/eCtE_G34M9ygdkmOpYvCag1vBARCmZwnVS6rS5t4JLzJ6QgQSBquM0nuTsCpLhYbKljoyS-txg";
+//    private static final String urlProfileImg = "https://lh3.googleusercontent.com/eCtE_G34M9ygdkmOpYvCag1vBARCmZwnVS6rS5t4JLzJ6QgQSBquM0nuTsCpLhYbKljoyS-txg";
 
     private String[] activityTitles;
 
@@ -85,14 +81,13 @@ public class TCNavActivity extends AppCompatActivity {
         txtName = (TextView) navHeader.findViewById(R.id.name);
         txtWebsite = (TextView) navHeader.findViewById(R.id.website);
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
-        imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
+//        imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
         activityTitles = getResources().getStringArray(R.array.nav_item_tc_activity_titles);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                openDialogue();
             }
         });
 
@@ -101,12 +96,16 @@ public class TCNavActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             navItemIndex = 0;
-            CURRENT_TAG = TAG_HOME;
+            CURRENT_TAG = TAG_PROFILE;
             loadHomeFragment();
         }
 
     }
-    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+    public void openDialogue(){
+        ExDialog exDialog=new ExDialog();
+        exDialog.show(getSupportFragmentManager(),"example dialog");
+    }
+//    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     private void loadNavHeader() {
         // name, website
         txtName.setText("Ankit");
@@ -119,15 +118,15 @@ public class TCNavActivity extends AppCompatActivity {
                 .into(imgNavHeaderBg);
 
         // Loading profile image
-        Glide.with(this).load(urlProfileImg)
-                .crossFade()
-                .thumbnail(0.5f)
-                .bitmapTransform(new CircleTransform(this))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imgProfile);
+//        Glide.with(this).load(urlProfileImg)
+//                .crossFade()
+//                .thumbnail(0.5f)
+//                .bitmapTransform(new CircleTransform(this))
+//                .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .into(imgProfile);
 
         // showing dot next to notifications label
-        navigationView.getMenu().getItem(1).setActionView(R.layout.menu_dot);
+        navigationView.getMenu().getItem(5).setActionView(R.layout.menu_dot);
     }
     private void loadHomeFragment() {
         selectNavMenu();
@@ -163,29 +162,29 @@ public class TCNavActivity extends AppCompatActivity {
     }
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
-            case 1:
+            case 0:
+                ProfileFragment profileFragment = new ProfileFragment();
+                return profileFragment;
+            case 4:
                 NewsFragment newsFragment = new NewsFragment();
                 return newsFragment;
             case 2:
-                WebinarsFragment webinarsFragment = new WebinarsFragment();
-                return webinarsFragment;
-            case 3:
                 AttendanceFragment attendanceFragment= new AttendanceFragment();
                 return attendanceFragment;
-            case 4:
+            case 1:
                 BatchFragment batchFragment= new BatchFragment();
                 return batchFragment;
-            case 5:
+            case 3:
                 VarificationFragment varificationFragment= new VarificationFragment();
                 return varificationFragment;
             case 6:
                 JobFragment jobFragment = new JobFragment();
                 return jobFragment;
-            case 7:
-                ProfileFragment profileFragment = new ProfileFragment();
-                return profileFragment;
+            case 5:
+                WebinarsFragment webinarsFragment = new WebinarsFragment();
+                return webinarsFragment;
             default:
-                return new TraineeHomeFragment();
+                return new ProfileFragment();
         }
     }
 
@@ -207,35 +206,31 @@ public class TCNavActivity extends AppCompatActivity {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.nav_home:
                         navItemIndex = 0;
-                        CURRENT_TAG = TAG_HOME;
+                        CURRENT_TAG = TAG_PROFILE;
                         break;
                     case R.id.nav_news:
-                        navItemIndex = 1;
+                        navItemIndex = 4;
                         CURRENT_TAG = TAG_NEWS;
                         break;
-                    case R.id.nav_Webinars:
-                        navItemIndex = 2;
-                        CURRENT_TAG = TAG_WEBINAR;
-                        break;
                     case R.id.nav_Attendance:
-                        navItemIndex = 3;
+                        navItemIndex = 2;
                         CURRENT_TAG = TAG_ATTEND;
                         break;
                     case R.id.nav_tc_batch:
-                        navItemIndex = 4;
+                        navItemIndex = 1;
                         CURRENT_TAG = TAG_BATCH;
                         break;
                     case R.id.nav_tc_Varification:
-                        navItemIndex = 5;
+                        navItemIndex = 3;
                         CURRENT_TAG = TAG_VARIFICATION;
                         break;
                     case R.id.nav_tc_job:
                         navItemIndex = 6;
                         CURRENT_TAG = TAG_JOB;
                         break;
-                    case R.id.nav_Profile:
-                        navItemIndex = 7;
-                        CURRENT_TAG = TAG_PROFILE;
+                    case R.id.nav_Webinars:
+                        navItemIndex = 5;
+                        CURRENT_TAG = TAG_WEBINAR;
                         break;
                     default:
                         navItemIndex = 0;
@@ -280,7 +275,7 @@ public class TCNavActivity extends AppCompatActivity {
         if (shouldLoadHomeFragOnBackPress) {
             if (navItemIndex != 0) {
                 navItemIndex = 0;
-                CURRENT_TAG = TAG_HOME;
+                CURRENT_TAG = TAG_PROFILE;
                 loadHomeFragment();
                 return;
             }
