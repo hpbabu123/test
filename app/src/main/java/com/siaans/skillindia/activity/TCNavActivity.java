@@ -30,6 +30,11 @@ import com.siaans.skillindia.LoginActivity;
 import com.siaans.skillindia.R;
 import com.siaans.skillindia.fragment.AttendanceFragment;
 import com.siaans.skillindia.fragment.BatchFragment;
+<<<<<<< HEAD
+=======
+import com.siaans.skillindia.fragment.CertificateFragment;
+import com.siaans.skillindia.fragment.HomeFragment;
+>>>>>>> c1e2d366b9286947c1c3b5f9b71f8c7049a9b4b8
 import com.siaans.skillindia.fragment.JobFragment;
 import com.siaans.skillindia.fragment.NewsFragment;
 import com.siaans.skillindia.fragment.ProfileFragment;
@@ -304,7 +309,7 @@ public class TCNavActivity extends AppCompatActivity {
             finish();
 
             Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
-            Intent intent=new Intent(TCNavActivity.this, LoginActivity.class);
+            Intent intent=new Intent(TCNavActivity.this, NavigationActivity.class);
             startActivity(intent);
             return true;
         }

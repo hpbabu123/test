@@ -28,6 +28,7 @@ import com.siaans.skillindia.LoginActivity;
 import com.siaans.skillindia.R;
 import com.siaans.skillindia.fragment.AttendanceFragment;
 import com.siaans.skillindia.fragment.CertificateFragment;
+import com.siaans.skillindia.fragment.HomeFragment;
 import com.siaans.skillindia.fragment.NewsFragment;
 import com.siaans.skillindia.fragment.ProfileFragment;
 import com.siaans.skillindia.fragment.ReviewsFragment;
@@ -39,7 +40,7 @@ public class TraineeNavActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
-    private ImageView imgNavHeaderBg, imgProfile;
+    private ImageView imgNavHeaderBg;// imgProfile;
     private TextView txtName, txtWebsite;
     private Toolbar toolbar;
     private FloatingActionButton fab;
@@ -55,7 +56,7 @@ public class TraineeNavActivity extends AppCompatActivity {
     public static String CURRENT_TAG = TAG_PROFILE;
 
     private static final String urlNavHeaderBg = "https://api.androidhive.info/images/nav-menu-header-bg.jpg";
-    private static final String urlProfileImg = "https://lh3.googleusercontent.com/eCtE_G34M9ygdkmOpYvCag1vBARCmZwnVS6rS5t4JLzJ6QgQSBquM0nuTsCpLhYbKljoyS-txg";
+    //private static final String urlProfileImg = "https://lh3.googleusercontent.com/eCtE_G34M9ygdkmOpYvCag1vBARCmZwnVS6rS5t4JLzJ6QgQSBquM0nuTsCpLhYbKljoyS-txg";
 
     private String[] activityTitles;
 
@@ -76,7 +77,7 @@ public class TraineeNavActivity extends AppCompatActivity {
         txtName = (TextView) navHeader.findViewById(R.id.name);
         txtWebsite = (TextView) navHeader.findViewById(R.id.website);
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
-        imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
+        //imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
         activityTitles = getResources().getStringArray(R.array.nav_item_trainee_activity_titles);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -113,12 +114,12 @@ public class TraineeNavActivity extends AppCompatActivity {
                 .into(imgNavHeaderBg);
 
         // Loading profile image
-        Glide.with(this).load(urlProfileImg)
-                .crossFade()
-                .thumbnail(0.5f)
-                .bitmapTransform(new CircleTransform(this))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imgProfile);
+//        Glide.with(this).load(urlProfileImg)
+//                .crossFade()
+//                .thumbnail(0.5f)
+//                .bitmapTransform(new CircleTransform(this))
+//                .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .into(imgProfile);
 
         // showing dot next to notifications label
         navigationView.getMenu().getItem(1).setActionView(R.layout.menu_dot);
@@ -304,7 +305,7 @@ public class TraineeNavActivity extends AppCompatActivity {
             finish();
 
             Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
-            Intent intent=new Intent(TraineeNavActivity.this, LoginActivity.class);
+            Intent intent=new Intent(TraineeNavActivity.this, NavigationActivity.class);
             startActivity(intent);
             return true;
         }
