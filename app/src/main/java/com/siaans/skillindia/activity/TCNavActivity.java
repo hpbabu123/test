@@ -1,7 +1,9 @@
 package com.siaans.skillindia.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +15,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,12 +26,15 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.siaans.skillindia.LoginActivity;
 import com.siaans.skillindia.R;
 import com.siaans.skillindia.fragment.AttendanceFragment;
 import com.siaans.skillindia.fragment.BatchFragment;
+import com.siaans.skillindia.fragment.CertificateFragment;
 import com.siaans.skillindia.fragment.JobFragment;
 import com.siaans.skillindia.fragment.NewsFragment;
 import com.siaans.skillindia.fragment.ProfileFragment;
+import com.siaans.skillindia.fragment.ReviewsFragment;
 import com.siaans.skillindia.fragment.TraineeHomeFragment;
 import com.siaans.skillindia.fragment.VarificationFragment;
 import com.siaans.skillindia.fragment.WebinarsFragment;
@@ -79,7 +85,7 @@ public class TCNavActivity extends AppCompatActivity {
         txtWebsite = (TextView) navHeader.findViewById(R.id.website);
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
         imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
-        activityTitles = getResources().getStringArray(R.array.nav_item_trainee_activity_titles);
+        activityTitles = getResources().getStringArray(R.array.nav_item_tc_activity_titles);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,11 +144,13 @@ public class TCNavActivity extends AppCompatActivity {
             public void run() {
                 // update the main content by replacing fragments
                 Fragment fragment = getHomeFragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
-                        android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
-                fragmentTransaction.commitAllowingStateLoss();
+                if(fragment!=null) {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
+                            android.R.anim.fade_out);
+                    fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
+                    fragmentTransaction.commitAllowingStateLoss();
+                }
             }
         };
         if (mPendingRunnable != null) {
@@ -154,10 +162,6 @@ public class TCNavActivity extends AppCompatActivity {
     }
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
-            case 0:
-                // home
-                TraineeHomeFragment traineehomeFragment = new TraineeHomeFragment();
-                return traineehomeFragment;
             case 1:
                 NewsFragment newsFragment = new NewsFragment();
                 return newsFragment;
@@ -232,7 +236,6 @@ public class TCNavActivity extends AppCompatActivity {
                         navItemIndex = 7;
                         CURRENT_TAG = TAG_PROFILE;
                         break;
-
                     default:
                         navItemIndex = 0;
                 }
@@ -297,7 +300,15 @@ public class TCNavActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_logout) {
+            SharedPreferences preferences =getSharedPreferences("loginPrefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.commit();
+            finish();
+
             Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
+            Intent intent=new Intent(TCNavActivity.this, LoginActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -309,5 +320,3 @@ public class TCNavActivity extends AppCompatActivity {
             fab.hide();
     }
 }
-
-
