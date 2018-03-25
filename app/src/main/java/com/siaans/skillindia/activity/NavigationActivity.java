@@ -87,7 +87,7 @@ public class NavigationActivity extends AppCompatActivity {
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
 
-        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
+        activityTitles = getResources().getStringArray(R.array.nav_item_trainee_activity_titles);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
