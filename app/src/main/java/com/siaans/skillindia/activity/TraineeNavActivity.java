@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +37,9 @@ import com.siaans.skillindia.fragment.WebinarsFragment;
 import com.siaans.skillindia.other.CircleTransform;
 
 public class TraineeNavActivity extends AppCompatActivity {
-
+    public SharedPreferences.Editor loginPrefsEditor;
+    public  SharedPreferences loginPreferences;
+    private String saveLogin;
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
@@ -44,7 +47,7 @@ public class TraineeNavActivity extends AppCompatActivity {
     private TextView txtName, txtWebsite;
     private Toolbar toolbar;
     private FloatingActionButton fab;
-    Bundle b;
+
 
     public static int navItemIndex = 0;
 
@@ -80,9 +83,17 @@ public class TraineeNavActivity extends AppCompatActivity {
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
         //imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
         activityTitles = getResources().getStringArray(R.array.nav_item_trainee_activity_titles);
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
 
-        Intent i = getIntent();
-        b = i.getExtras();
+        saveLogin = loginPreferences.getString("Trainee","");
+        Log.d("'", "onCreate: "+saveLogin);
+
+//        Intent i = getIntent();
+//        b = i.getExtras();
+//        String s=b.getString(
+//                "json"
+//        );
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,10 +172,12 @@ public class TraineeNavActivity extends AppCompatActivity {
         invalidateOptionsMenu();
     }
     private Fragment getHomeFragment() {
+        Bundle b=new Bundle();
         switch (navItemIndex) {
             case 0:
                 // home
                 ProfileFragment profileFragment = new ProfileFragment();
+                   b.putString("json",saveLogin);
                 profileFragment.setArguments(b);
                 return profileFragment;
             case 1:
@@ -184,6 +197,7 @@ public class TraineeNavActivity extends AppCompatActivity {
                 return certificatesFragment;
             default:
                 ProfileFragment profileFragment1 = new ProfileFragment();
+                b.putString("json",saveLogin);
                 profileFragment1.setArguments(b);
                 return profileFragment1;
         }
@@ -307,6 +321,7 @@ public class TraineeNavActivity extends AppCompatActivity {
             editor.putString("username", "");
             editor.putString("password", "");
             editor.putString("lgn","");
+            editor.putString("Trainee","");
             editor.clear();
             editor.commit();
             finish();
