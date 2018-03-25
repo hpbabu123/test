@@ -1,5 +1,6 @@
 package com.siaans.skillindia;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +31,7 @@ public class TCForgotActivity extends AppCompatActivity {
     private static LinearLayout forget;
     private static String flag;
     String res;
+    ProgressBar send;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class TCForgotActivity extends AppCompatActivity {
         submit = findViewById(R.id.forgot_button);
         shake = AnimationUtils.loadAnimation(this,R.anim.shake);
         forget = findViewById(R.id.forget_Layout);
+        send=findViewById(R.id.submiting);
         Intent i=getIntent();
         Bundle b=i.getExtras();
         flag=b.getString("flag");
@@ -52,6 +56,11 @@ public class TCForgotActivity extends AppCompatActivity {
 
 
     private void submitButtonTask() {
+
+        send.setVisibility(View.VISIBLE);
+        send.setIndeterminate(true);
+        submit.setVisibility(View.INVISIBLE);
+        submit.setEnabled(false);
         String getEmailId = emailId.getText().toString();
         // Pattern for email id validation
         Pattern p = Pattern.compile(Emailchecker.regEx);
@@ -61,18 +70,33 @@ public class TCForgotActivity extends AppCompatActivity {
 
         // First check if email id is not null else show error toast
         if (getEmailId.equals("") || getEmailId.length() == 0){
+            send.setVisibility(View.INVISIBLE);
+            send.setIndeterminate(false);
+            submit.setVisibility(View.VISIBLE);
+            submit.setEnabled(true);
             forget.startAnimation(shake);
             Toast.makeText(this,"Enter the Username",Toast.LENGTH_SHORT).show();
         }
+        else if (!m.find()) {
+            send.setVisibility(View.INVISIBLE);
+            send.setIndeterminate(false);
+            submit.setVisibility(View.VISIBLE);
+            submit.setEnabled(true);
+            forget.startAnimation(shake);
+            Toast.makeText(this, "Invalid EmailID", Toast.LENGTH_SHORT).show();
+        }
         // Else submit email id and fetch passwod or do your stuff
         else{
-            BackgroundTask b=new BackgroundTask();
+            BackgroundTask b=new BackgroundTask(this);
              b.execute(emailId.getText().toString(),flag);
-            Toast.makeText(this,res,Toast.LENGTH_SHORT).show();
+
         }
     }
     class BackgroundTask extends AsyncTask<String,Void,String> {
-
+        Context ctx;
+        BackgroundTask(Context ctx){
+            this.ctx=ctx;
+        }
         String add_info_url;
         @Override
         protected void onPreExecute() {
@@ -99,17 +123,7 @@ public class TCForgotActivity extends AppCompatActivity {
                             while ((inputLine = in.readLine()) != null) {
                                 response.append(inputLine);
                             }
-                            Log.d("dvf", "doInBackground: "+response);
-                            if(response.toString().equals("Check OTP on MAIL  in 2 min! check on spam.")) {
-                                Intent i = new Intent(TCForgotActivity.this, OtpTCActivity.class);
-                                Bundle b = new Bundle();
-                                b.putString("Email",args[0]);
-                                b.putString("flag",args[1]);
-                                i.putExtras(b);
-                                startActivity(i);
-                                finish();
-                            }
-              //              otp.setVisibility(View.VISIBLE);
+
                             res=response.toString();
                             in.close();
                             return response.toString();
@@ -128,7 +142,26 @@ public class TCForgotActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String r) {
+            if(res.toString().equals("Check OTP on MAIL  in 2 min! check on spam.")) {
+                Toast.makeText(ctx, "Check OTP on MAIL  in 2 min! check on spam.", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(TCForgotActivity.this, OtpTCActivity.class);
+                Bundle b = new Bundle();
+                b.putString("Email",emailId.getText().toString());
+                b.putString("flag",flag);
+                i.putExtras(b);
+                startActivity(i);
+                finish();
+            }
+            else{
+                //donwe
+                send.setVisibility(View.INVISIBLE);
+                send.setIndeterminate(false);
+                submit.setVisibility(View.VISIBLE);
+                submit.setEnabled(true);
+                forget.startAnimation(shake);
+                Toast.makeText(ctx,"Not A Valid ID",Toast.LENGTH_SHORT).show();
 
+            }
         }
     }
 }

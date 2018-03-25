@@ -33,7 +33,6 @@
         <activity android:name=".Trainee_Login_Activity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".Registerpage1Activity" />
-        <activity android:name=".ForgotActivity" />
         <activity android:name=".Reg_Activity" />
         <activity android:name=".activity.NavigationActivity" />
         <activity android:name=".TCloginActivity" />
