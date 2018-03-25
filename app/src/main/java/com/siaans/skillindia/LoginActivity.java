@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private static CheckBox show_hide_password;
     private static LinearLayout loginLayout;
     private static Animation shakeAnimation;
+    ProgressBar send;String email,pass1;
 
     public LoginActivity() {
 
@@ -53,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         //set the view
         setContentView(R.layout.activity_login);
         //intizaling the variables
-
+        send=findViewById(R.id.submiting);
         emailid = findViewById(R.id.login_emailid);
         password = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.btnLogin);
@@ -71,9 +73,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
         if (saveLogin == true) {
-            emailid.setText(loginPreferences.getString("username", ""));
-            password.setText(loginPreferences.getString("password", ""));
-
+            String typ=loginPreferences.getString("lgn","");
+            if(typ.equals("Trainee")) {
+                Intent n = new Intent(LoginActivity.this, TraineeNavActivity.class);
+                startActivity(n);
+                finish();
+            }
 
         }
 
@@ -81,10 +86,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailid.getText().toString();
-                String pass1 = password.getText().toString();
-                //new Thread (new Task()).start();
-               // new myAsyncTask().execute()+
+                email = emailid.getText().toString();
+                 pass1 = password.getText().toString();
                 // Get email id and password
                 String getEmailId = emailid.getText().toString();
                 String getPassword = password.getText().toString();
@@ -98,18 +101,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 // Check if email id is valid or not
                 else if (!m.find()) {
-                    Toast.makeText(LoginActivity.this, "Invalid EMail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Invalid Email", Toast.LENGTH_SHORT).show();
                 } else {
-//                    Toast.makeText(LoginActivity.this, "Login", Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(LoginActivity.this, TraineeNavActivity.class);
-//                    startActivity(intent);
-//                    finish();
-                    BackgroundTask backgroundTask = new BackgroundTask();
+//
+                    BackgroundTask backgroundTask = new BackgroundTask(LoginActivity.this);
                     backgroundTask.execute(getEmailId,getPassword);
-                    SharedPreferences.Editor h=  loginPrefsEditor.putBoolean("saveLogin", true);
-                    loginPrefsEditor.putString("username", email);
-                    loginPrefsEditor.putString("password", pass1);
-                    loginPrefsEditor.commit();
 
                 }
             }
@@ -160,8 +156,12 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     class BackgroundTask extends AsyncTask<String,Void,String>{
-
+        Context ctx;
         String add_info_url;
+
+        BackgroundTask(Context ctx){
+            this.ctx=ctx;
+        }
         @Override
         protected void onPreExecute() {
             add_info_url ="http://159.65.144.10/miniproject/login.php";
@@ -201,10 +201,19 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String r) {
             if(r.equals("Wrong Username or Password")){
+                send.setVisibility(View.INVISIBLE);
+                send.setIndeterminate(false);
+                loginButton.setVisibility(View.VISIBLE);
+                loginButton.setEnabled(true);
                 Toast.makeText(LoginActivity.this,"Invalid username & password",Toast.LENGTH_LONG).show();
 
             }
             else{
+                SharedPreferences.Editor h=  loginPrefsEditor.putBoolean("saveLogin", true);
+                loginPrefsEditor.putString("username", email);
+                loginPrefsEditor.putString("password", pass1);
+                loginPrefsEditor.putString("lgn","Trainee");
+                loginPrefsEditor.commit();
                 Intent intent = new Intent(LoginActivity.this, TraineeNavActivity.class);
                     startActivity(intent);
                     finish();
