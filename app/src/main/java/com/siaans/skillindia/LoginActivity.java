@@ -228,13 +228,14 @@ public class LoginActivity extends AppCompatActivity {
                 loginPrefsEditor.putBoolean("saveLogin", true);
                 loginPrefsEditor.putString("username", email);
                 loginPrefsEditor.putString("password", pass1);
+
                 loginPrefsEditor.putString("lgn","Trainee");
+                loginPrefsEditor.putString("Trainee",r);
                 loginPrefsEditor.commit();
+
+
                 Intent intent = new Intent(LoginActivity.this, TraineeNavActivity.class);
-                Bundle b=new Bundle();
-                b.putString("json",r);
-                intent.putExtras(b);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
                 startActivity(intent);
                 finishAffinity ();
 

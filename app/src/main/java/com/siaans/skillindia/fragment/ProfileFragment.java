@@ -27,7 +27,7 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
         Bundle b = getArguments();
-        String str = b.getString("json");
+       String str = b.getString("json");
         Log.d("data",str);
 
         return root;
