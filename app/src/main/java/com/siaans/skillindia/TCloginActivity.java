@@ -79,6 +79,10 @@ public class TCloginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                send.setVisibility(View.VISIBLE);
+                send.setIndeterminate(true);
+                loginButton.setVisibility(View.INVISIBLE);
+                loginButton.setEnabled(false);
                 // Get email id and password
                 String getEmailId = emailid.getText().toString();
                 String getPassword = password.getText().toString();
@@ -87,9 +91,17 @@ public class TCloginActivity extends AppCompatActivity {
                 // Check for both field is empty or not
                 if (getEmailId.equals("") || getEmailId.length() == 0 || getPassword.equals("") || getPassword.length() == 0) {
                     loginLayout.startAnimation(shakeAnimation);
+                    send.setVisibility(View.INVISIBLE);
+                    send.setIndeterminate(false);
+                    loginButton.setVisibility(View.VISIBLE);
+                    loginButton.setEnabled(true);
                     Toast.makeText(TCloginActivity.this, "Enter Both Credentials", Toast.LENGTH_SHORT).show();
                 }
                 else if (!m.find()) {
+                    send.setVisibility(View.INVISIBLE);
+                    send.setIndeterminate(false);
+                    loginButton.setVisibility(View.VISIBLE);
+                    loginButton.setEnabled(true);
                     Toast.makeText(TCloginActivity.this, "Invalid Email", Toast.LENGTH_SHORT).show();
                 }
                 // Check if email id is valid or not
@@ -145,7 +157,7 @@ public class TCloginActivity extends AppCompatActivity {
         }
         @Override
         protected void onPreExecute() {
-            add_info_url ="http://159.65.144.10/miniproject/TClogin.php";
+            add_info_url ="http://159.65.144.10/miniproject/Tclogin.php";
 
         }
 
@@ -156,6 +168,8 @@ public class TCloginActivity extends AppCompatActivity {
             try {
                 URL url = new URL(add_info_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setReadTimeout( 10000 /*milliseconds*/ );
+                httpURLConnection.setConnectTimeout( 15000 /* milliseconds */ );
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader buff=new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
                 String r="";
@@ -190,7 +204,7 @@ public class TCloginActivity extends AppCompatActivity {
 
             }
             else{
-                SharedPreferences.Editor h=  loginPrefsEditor.putBoolean("saveLogin", true);
+                loginPrefsEditor.putBoolean("saveLogin", true);
                 loginPrefsEditor.putString("username", email);
                 loginPrefsEditor.putString("password", pass1);
                 loginPrefsEditor.putString("lgn","Trainee");

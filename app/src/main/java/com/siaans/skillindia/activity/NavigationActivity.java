@@ -65,7 +65,7 @@ public class NavigationActivity extends AppCompatActivity {
 
 
         if (saveLogin == true) {
-            String type = loginPreferences.getString("lgn", String.valueOf(true));
+            String type = loginPreferences.getString("lgn", String.valueOf(false));
             if(type.equals("Trainee")) {
                 Intent n = new Intent(NavigationActivity.this, TraineeNavActivity.class);
                 startActivity(n);

@@ -40,6 +40,7 @@
         <activity android:name=".activity.TraineeNavActivity" />
         <activity android:name=".OtpTCActivity" />
         <activity android:name=".NewPassActivity"></activity>
+        <activity android:name=".activity.TCNavActivity"></activity>
     </application>
 
 </manifest>

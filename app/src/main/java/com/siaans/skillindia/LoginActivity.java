@@ -86,6 +86,10 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                send.setVisibility(View.VISIBLE);
+                send.setIndeterminate(true);
+                loginButton.setVisibility(View.INVISIBLE);
+                loginButton.setEnabled(false);
                 email = emailid.getText().toString();
                  pass1 = password.getText().toString();
                 // Get email id and password
@@ -96,11 +100,19 @@ public class LoginActivity extends AppCompatActivity {
                 Matcher m = p.matcher(getEmailId);
                 // Check for both field is empty or not
                 if (getEmailId.equals("") || getEmailId.length() == 0 || getPassword.equals("") || getPassword.length() == 0) {
+                    send.setVisibility(View.INVISIBLE);
+                    send.setIndeterminate(false);
+                    loginButton.setVisibility(View.VISIBLE);
+                    loginButton.setEnabled(true);
                     loginLayout.startAnimation(shakeAnimation);
                     Toast.makeText(LoginActivity.this, "Enter Both Credentials", Toast.LENGTH_SHORT).show();
                 }
                 // Check if email id is valid or not
                 else if (!m.find()) {
+                    send.setVisibility(View.INVISIBLE);
+                    send.setIndeterminate(false);
+                    loginButton.setVisibility(View.VISIBLE);
+                    loginButton.setEnabled(true);
                     Toast.makeText(LoginActivity.this, "Invalid Email", Toast.LENGTH_SHORT).show();
                 } else {
 //
@@ -175,6 +187,9 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 URL url = new URL(add_info_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setReadTimeout( 10000 /*milliseconds*/ );
+                httpURLConnection.setConnectTimeout( 15000 /* milliseconds */ );
+
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader buff=new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
                 String r="";
@@ -209,7 +224,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
             else{
-                SharedPreferences.Editor h=  loginPrefsEditor.putBoolean("saveLogin", true);
+                loginPrefsEditor.putBoolean("saveLogin", true);
                 loginPrefsEditor.putString("username", email);
                 loginPrefsEditor.putString("password", pass1);
                 loginPrefsEditor.putString("lgn","Trainee");
