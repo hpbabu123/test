@@ -71,13 +71,13 @@
     </string-array>
 
     <string-array name="nav_item_trainee_activity_titles">
-        <item>Home</item>
+        <item>Profile</item>
         <item>News</item>
         <item>Webinars</item>
         <item>Attendance</item>
         <item>Reviews</item>
         <item>Certificates</item>
-        <item>Profile</item>
+
     </string-array>
 
     <string-array name="nav_item_tc_activity_titles">

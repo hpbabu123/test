@@ -1,5 +1,6 @@
 package com.siaans.skillindia;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -142,7 +143,7 @@ public class NewPassActivity extends AppCompatActivity {
                     finish();
                 }
                 else{
-                    Intent i = new Intent(NewPassActivity.this, Trainee_Login_Activity.class);
+                    Intent i = new Intent(NewPassActivity.this, LoginActivity.class);
                     startActivity(i);
                     finish();
                 }

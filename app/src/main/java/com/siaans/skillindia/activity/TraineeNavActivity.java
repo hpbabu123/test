@@ -3,12 +3,9 @@ package com.siaans.skillindia.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -26,6 +23,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.siaans.skillindia.ExDialog;
 import com.siaans.skillindia.LoginActivity;
 import com.siaans.skillindia.R;
 import com.siaans.skillindia.fragment.AttendanceFragment;
@@ -33,7 +31,6 @@ import com.siaans.skillindia.fragment.CertificateFragment;
 import com.siaans.skillindia.fragment.NewsFragment;
 import com.siaans.skillindia.fragment.ProfileFragment;
 import com.siaans.skillindia.fragment.ReviewsFragment;
-import com.siaans.skillindia.fragment.TraineeHomeFragment;
 import com.siaans.skillindia.fragment.WebinarsFragment;
 import com.siaans.skillindia.other.CircleTransform;
 
@@ -49,14 +46,13 @@ public class TraineeNavActivity extends AppCompatActivity {
 
     public static int navItemIndex = 0;
 
-    private static final String TAG_HOME = "home";
     private static final String TAG_NEWS = "news";
     private static final String TAG_WEBINAR="webinar";
     private static final String TAG_ATTEND="attendance";
     private static final String TAG_REVIEWS="reviews";
     private static final String TAG_CERTIFICATE="certificate";
     private static final String TAG_PROFILE="profile";
-    public static String CURRENT_TAG = TAG_HOME;
+    public static String CURRENT_TAG = TAG_PROFILE;
 
     private static final String urlNavHeaderBg = "https://api.androidhive.info/images/nav-menu-header-bg.jpg";
     private static final String urlProfileImg = "https://lh3.googleusercontent.com/eCtE_G34M9ygdkmOpYvCag1vBARCmZwnVS6rS5t4JLzJ6QgQSBquM0nuTsCpLhYbKljoyS-txg";
@@ -86,8 +82,7 @@ public class TraineeNavActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                openDialogue();
             }
         });
 
@@ -96,12 +91,16 @@ public class TraineeNavActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             navItemIndex = 0;
-            CURRENT_TAG = TAG_HOME;
+            CURRENT_TAG = TAG_PROFILE;
             loadHomeFragment();
         }
 
     }
-    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+    public void openDialogue(){
+        ExDialog exDialog=new ExDialog();
+        exDialog.show(getSupportFragmentManager(),"example dialog");
+    }
+//    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     private void loadNavHeader() {
         // name, website
         txtName.setText("Ankit");
@@ -160,8 +159,8 @@ public class TraineeNavActivity extends AppCompatActivity {
         switch (navItemIndex) {
             case 0:
                 // home
-                TraineeHomeFragment traineehomeFragment = new TraineeHomeFragment();
-                return traineehomeFragment;
+                ProfileFragment profileFragment = new ProfileFragment();
+                return profileFragment;
             case 1:
                 NewsFragment newsFragment = new NewsFragment();
                 return newsFragment;
@@ -177,11 +176,8 @@ public class TraineeNavActivity extends AppCompatActivity {
             case 5:
                 CertificateFragment certificatesFragment= new CertificateFragment();
                 return certificatesFragment;
-            case 6:
-                ProfileFragment profileFragment = new ProfileFragment();
-                return profileFragment;
             default:
-                return new TraineeHomeFragment();
+                return new ProfileFragment();
         }
     }
 
@@ -201,9 +197,9 @@ public class TraineeNavActivity extends AppCompatActivity {
                 //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
-                    case R.id.nav_home:
+                    case R.id.nav_Profile:
                         navItemIndex = 0;
-                        CURRENT_TAG = TAG_HOME;
+                        CURRENT_TAG = TAG_PROFILE;
                         break;
                     case R.id.nav_news:
                         navItemIndex = 1;
@@ -224,10 +220,6 @@ public class TraineeNavActivity extends AppCompatActivity {
                     case R.id.nav_Certificates:
                         navItemIndex = 5;
                         CURRENT_TAG = TAG_CERTIFICATE;
-                        break;
-                    case R.id.nav_Profile:
-                        navItemIndex = 5;
-                        CURRENT_TAG = TAG_PROFILE;
                         break;
 
                     default:
@@ -273,7 +265,7 @@ public class TraineeNavActivity extends AppCompatActivity {
         if (shouldLoadHomeFragOnBackPress) {
             if (navItemIndex != 0) {
                 navItemIndex = 0;
-                CURRENT_TAG = TAG_HOME;
+                CURRENT_TAG = TAG_PROFILE;
                 loadHomeFragment();
                 return;
             }
@@ -282,6 +274,13 @@ public class TraineeNavActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+
+    private void toggleFab() {
+        if (navItemIndex == 0)
+            fab.show();
+        else
+            fab.hide();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (navItemIndex == 0) {
@@ -310,11 +309,5 @@ public class TraineeNavActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-    private void toggleFab() {
-        if (navItemIndex == 0)
-            fab.show();
-        else
-            fab.hide();
     }
 }
