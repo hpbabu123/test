@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_tc_home"
+            android:title="@string/nav_home" />
+        <item
+            android:id="@+id/nav_tc_news"
+
+            android:title="@string/nav_news" />
+        <item
+            android:id="@+id/nav_tc_Webinars"
+
+            android:title="webinars" />
+        <item
+            android:id="@+id/nav_tc_Attendance"
+
+            android:title="Attendance" />
+        <item
+            android:id="@+id/nav_tc_batch"
+
+            android:title="Batch" />
+        <item
+            android:id="@+id/nav_tc_Varification"
+
+            android:title="Varification" />
+        <item
+            android:id="@+id/nav_Profile"
+            android:title="Profile"/>
+        <item
+            android:id="@+id/nav_tc_job"
+            android:title="Job"/>
+
+    </group>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:title="nav_logout" />
+
+        </menu>
+    </item>
+
+</menu>
