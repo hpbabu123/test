@@ -44,6 +44,7 @@ public class TraineeNavActivity extends AppCompatActivity {
     private TextView txtName, txtWebsite;
     private Toolbar toolbar;
     private FloatingActionButton fab;
+    Bundle b;
 
     public static int navItemIndex = 0;
 
@@ -79,6 +80,9 @@ public class TraineeNavActivity extends AppCompatActivity {
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
         //imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
         activityTitles = getResources().getStringArray(R.array.nav_item_trainee_activity_titles);
+
+        Intent i = getIntent();
+        b = i.getExtras();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +165,7 @@ public class TraineeNavActivity extends AppCompatActivity {
             case 0:
                 // home
                 ProfileFragment profileFragment = new ProfileFragment();
+                profileFragment.setArguments(b);
                 return profileFragment;
             case 1:
                 NewsFragment newsFragment = new NewsFragment();
@@ -178,7 +183,9 @@ public class TraineeNavActivity extends AppCompatActivity {
                 CertificateFragment certificatesFragment= new CertificateFragment();
                 return certificatesFragment;
             default:
-                return new ProfileFragment();
+                ProfileFragment profileFragment1 = new ProfileFragment();
+                profileFragment1.setArguments(b);
+                return profileFragment1;
         }
     }
 
