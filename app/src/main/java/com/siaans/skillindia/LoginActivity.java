@@ -73,9 +73,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
         if (saveLogin == true) {
-            Intent n=new Intent(LoginActivity.this,TraineeNavActivity.class);
-            startActivity(n);
-            finish();
+            String typ=loginPreferences.getString("lgn","");
+            if(typ.equals("Trainee")) {
+                Intent n = new Intent(LoginActivity.this, TraineeNavActivity.class);
+                startActivity(n);
+                finish();
+            }
 
         }
 
