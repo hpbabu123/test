@@ -71,10 +71,10 @@ public class NavigationActivity extends AppCompatActivity {
                 startActivity(n);
                 finish();
             }else{
-//
-//                Intent n = new Intent(NavigationActivity.this, .class);
-//                startActivity(n);
-//                finish();
+
+                Intent n = new Intent(NavigationActivity.this, TCNavActivity.class);
+                startActivity(n);
+                finish();
             }
 
         }

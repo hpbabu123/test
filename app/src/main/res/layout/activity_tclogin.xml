@@ -104,7 +104,9 @@
             </LinearLayout>
 
             <!-- Login Button -->
-
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="fill_parent"
@@ -115,6 +117,17 @@
                 android:textColor="@color/black" />
 
             <!-- Link to Login Screen -->
+            <ProgressBar
+                android:id="@+id/submiting"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="319dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible" />
+
+            <!-- Link to Login Screen -->
+        </RelativeLayout>
 
 
         </LinearLayout>
