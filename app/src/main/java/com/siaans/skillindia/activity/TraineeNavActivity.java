@@ -296,6 +296,10 @@ public class TraineeNavActivity extends AppCompatActivity {
         if (id == R.id.action_logout) {
             SharedPreferences preferences =getSharedPreferences("loginPrefs", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("saveLogin", false);
+            editor.putString("username", "");
+            editor.putString("password", "");
+            editor.putString("lgn","");
             editor.clear();
             editor.commit();
             finish();

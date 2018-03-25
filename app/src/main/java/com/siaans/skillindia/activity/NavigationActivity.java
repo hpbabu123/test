@@ -65,16 +65,16 @@ public class NavigationActivity extends AppCompatActivity {
 
 
         if (saveLogin == true) {
-            String type = loginPreferences.getString("lgn", String.valueOf(true));
+            String type = loginPreferences.getString("lgn", String.valueOf(false));
             if(type.equals("Trainee")) {
                 Intent n = new Intent(NavigationActivity.this, TraineeNavActivity.class);
                 startActivity(n);
                 finish();
             }else{
-//
-//                Intent n = new Intent(NavigationActivity.this, .class);
-//                startActivity(n);
-//                finish();
+
+                Intent n = new Intent(NavigationActivity.this, TCNavActivity.class);
+                startActivity(n);
+                finish();
             }
 
         }
@@ -179,6 +179,7 @@ public class NavigationActivity extends AppCompatActivity {
             case 4:
                 Intent intent2 =new Intent(NavigationActivity.this, TCloginActivity.class);
                 startActivity(intent2);
+
                 navItemIndex=0;
                 CURRENT_TAG=TAG_HOME;
                 loadHomeFragment();
