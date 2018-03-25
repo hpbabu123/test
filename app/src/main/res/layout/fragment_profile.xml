@@ -12,10 +12,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/graylight"
-            android:orientation="vertical"
-            tools:context="com.">
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -28,13 +27,16 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/profileImg"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="45dp"
-                        android:src="@drawable/bg_circle" />
+                        android:src="@drawable/bg_circle"
+                        android:contentDescription="@string/todo" />
 
                     <TextView
+                        android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -50,13 +52,14 @@
                     android:layout_height="120dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="275dp"
+                    tools:style="@style/CardView"
                     app:cardBackgroundColor="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:weightSum="3">
+                        android:weightSum="3" android:baselineAligned="false">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -70,15 +73,15 @@
                                 android:layout_height="wrap_content"
                                 android:text="Attendance"
                                 android:textColor="@color/black"
-                                android:textSize="18sp" />
+                                android:textSize="14sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="40dp"
                                 android:paddingTop="10dp"
                                 android:text="70"
                                 android:textColor="@color/startblue"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -95,15 +98,15 @@
                                 android:layout_height="wrap_content"
                                 android:text="Certifiacate"
                                 android:textColor="@color/black"
-                                android:textSize="18sp" />
+                                android:textSize="14sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="40dp"
                                 android:paddingTop="10dp"
                                 android:text="3"
                                 android:textColor="@color/startblue"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -118,17 +121,17 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Varifiacation"
+                                android:text="Varification"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="40dp"
                                 android:paddingTop="10dp"
-                                android:text="Varified"
+                                android:text="Verified"
                                 android:textColor="@color/startblue"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -141,26 +144,30 @@
                 android:layout_width="360dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingLeft="25dp">
+                    android:paddingBottom="5dp"
+                    android:paddingStart="25dp">
 
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:src="@drawable/email" />
+                        android:contentDescription="TODO"
+                        android:src="@drawable/adhaar" />
 
                     <TextView
+                        android:id="@+id/adhaar"
                         android:layout_width="293dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:text="Ankit Tawale"
+                        android:paddingStart="20dp"
+                        android:text="440022451247"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -169,15 +176,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingLeft="25dp">
+                    android:paddingStart="25dp"
+                    android:paddingBottom="5dp">
 
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:src="@drawable/email" />
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/dob" />
 
                     <TextView
-                        android:layout_width="293dp"
+                        android:id="@+id/dob"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
@@ -187,12 +197,35 @@
                 </LinearLayout>
 
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="25dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/gender" />
+
+                    <Spinner
+                        android:id="@+id/gendar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/black"
+                        android:layout_weight="1"
+                        android:entries="@array/gender" />
+
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingLeft="25dp">
+                    android:paddingLeft="25dp"
+                    android:paddingBottom="5dp">
 
                     <ImageView
                         android:layout_width="36dp"
@@ -200,7 +233,8 @@
                         android:src="@drawable/email" />
 
                     <TextView
-                        android:layout_width="293dp"
+                        android:id="@+id/emailId"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
@@ -212,7 +246,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="5dp"
                     android:orientation="horizontal"
                     android:paddingLeft="25dp">
 
@@ -222,8 +256,8 @@
                         android:src="@drawable/phone" />
 
                     <TextView
-                        android:layout_width="301dp"
-
+                        android:id="@+id/mob"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
@@ -235,15 +269,42 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:orientation="horizontal"
-                    android:paddingLeft="25dp">
+                    android:paddingStart="25dp">
 
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:src="@drawable/email" />
+                        android:contentDescription="TODO"
+                        android:src="@drawable/address" />
 
                     <TextView
+                        android:id="@+id/address"
+
+                        android:layout_width="301dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="20dp"
+                        android:text="Nagpur"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/pincode" />
+
+                    <TextView
+                        android:id="@+id/pincode"
                         android:layout_width="293dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -253,56 +314,14 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/email" />
-
-                    <TextView
-                        android:layout_width="293dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:text="440022451247"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/address" />
-
-                    <TextView
-                        android:layout_width="301dp"
-
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:text="Nagpur"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-                </LinearLayout>
             </LinearLayout>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/buttonstyle"
                 android:text="Save Changes"
                 android:textColor="#fff" />
