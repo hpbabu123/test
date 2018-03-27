@@ -1,6 +1,8 @@
 package com.siaans.skillindia;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +17,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -24,8 +28,10 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class Reg_Activity extends AppCompatActivity {
-
-
+    String dob_date;
+    Button dob;
+    int year_x,month_y,date_z;
+    static final int DILOG_ID = 0;
     Button bt_register;
     TextInputLayout til_name, til_last, til_password, til_confirmPass, til_mobile, til_email;
     ImageView iv_profile;
@@ -34,6 +40,7 @@ public class Reg_Activity extends AppCompatActivity {
     boolean IMAGE_STATUS = false;
     Bitmap profilePicture;
     private static Animation shakeAnimation;
+    TextInputLayout dateofbirth;
 
     private static RelativeLayout forget;
     @Override
@@ -41,6 +48,7 @@ public class Reg_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reg_);
 
+        showDialogOnButtonClick();
 
         setTitle("Create An Account");
         shakeAnimation = AnimationUtils.loadAnimation(this, R.anim.shake);
@@ -104,6 +112,39 @@ public class Reg_Activity extends AppCompatActivity {
 
     }
 
+    public void showDialogOnButtonClick(){
+        dob = (Button)findViewById(R.id.dob);
+        dob.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showDialog(DILOG_ID);
+                    }
+                }
+        );
+    }
+    @Override
+    protected Dialog onCreateDialog(int id){
+        if (id == DILOG_ID)
+            return new DatePickerDialog(this ,dpickerListener,year_x,month_y,date_z);
+        return null;
+    }
+    private DatePickerDialog.OnDateSetListener dpickerListener
+        = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            year_x = year;
+            month_y= month;
+            date_z = dayOfMonth;
+            dob_date = year_x+"-"+(month_y+1)+"-"+date_z;
+            dateofbirth.getEditText().setText(dob_date);
+        }
+    };
+
+
+
+
+
     private void convertBitmapToString(Bitmap profilePicture) {
         /*
             Base64 encoding requires a byte array, the bitmap image cannot be converted directly into a byte array.
@@ -145,6 +186,7 @@ public class Reg_Activity extends AppCompatActivity {
         til_email = (TextInputLayout) findViewById(R.id.emaillayout);
         bt_register = (Button) findViewById(R.id.Reg);
         iv_profile = (ImageView) findViewById(R.id.im_profile);
+        dateofbirth=(TextInputLayout)findViewById(R.id.doblayout);
     }
     private boolean validateUsername(String string) {
         if (string.equals("")) {
