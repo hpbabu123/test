@@ -3,10 +3,12 @@ package com.siaans.skillindia;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -20,12 +22,24 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.siaans.skillindia.activity.NavigationActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class Reg_Activity extends AppCompatActivity {
     String dob_date;
@@ -33,14 +47,15 @@ public class Reg_Activity extends AppCompatActivity {
     int year_x,month_y,date_z;
     static final int DILOG_ID = 0;
     Button bt_register;
-    TextInputLayout til_name, til_last, til_password, til_confirmPass, til_mobile, til_email;
+    TextInputLayout til_name, til_last, til_password, til_confirmPass, til_mobile, til_email,adhaar;
     ImageView iv_profile;
-    String name, last, password, email, mobile,confirm,profile;
+    String name, last, password, email, mobile,confirm,profile,adhharc;
 //    RequestQueue requestQueue;
     boolean IMAGE_STATUS = false;
     Bitmap profilePicture;
     private static Animation shakeAnimation;
     TextInputLayout dateofbirth;
+    ProgressBar send;
 
     private static RelativeLayout forget;
     @Override
@@ -72,12 +87,17 @@ public class Reg_Activity extends AppCompatActivity {
         bt_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                send.setVisibility(View.VISIBLE);
+                send.setIndeterminate(true);
+                bt_register.setVisibility(View.INVISIBLE);
+                bt_register.setEnabled(false);
                 name = til_name.getEditText().getText().toString();
                 last = til_last.getEditText().getText().toString();
                 password = til_password.getEditText().getText().toString();
                 email = til_email.getEditText().getText().toString();
                 mobile = til_mobile.getEditText().getText().toString();
                 confirm = til_confirmPass.getEditText().getText().toString();
+                adhharc=adhaar.getEditText().getText().toString();
                 if (    //perform validation by calling all the validate functions inside the IF condition
                         validateUsername(last) &&
                                 validateName(name) &&
@@ -85,25 +105,39 @@ public class Reg_Activity extends AppCompatActivity {
                                 validateConfirm(confirm) &&
                                 validateMobile(mobile) &&
                                 validateEmail(email) &&
-                                validateProfile()
+                                validateProfile() && validateadhaar(adhharc)
                         ) {
                     //Validation Success
-                    try {
-                        Intent intent = new Intent(Reg_Activity.this, Registerpage1Activity.class);
-                        Bundle b = new Bundle();
-                        b.putString("name", name);
-                        b.putString("username", last);
-                        b.putString("password", password);
-                        b.putString("email", email);
-                        b.putString("mobile", mobile);
-                        b.putString("profile", profile);
-                        intent.putExtras(b);
-                        startActivity(intent);
-                    }catch (Exception e){
-                        Log.d("de'", "onClick: d");
-                    }
+
+                        JSONObject b = new JSONObject();
+                        try{        // Adding All values to Params.
+                            b.put("name", name);
+                        b.put("username", last);
+                        b.put("password", password);
+                        b.put("email", email);
+                        b.put("mobile", mobile);
+                        b.put("profile", profile);
+                        b.put("adhaar",adhharc);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.d("s", "onClick: cdxs");
+
+                        }
+                        String message = b.toString();
+                        Log.d("s", "onClick: "+message);
+                        Reg_Activity.BackgroundTask bkk=new Reg_Activity.BackgroundTask(Reg_Activity.this);
+                        bkk.execute(message);
+//
+//
+//                        intent.putExtras(b);
+//                        startActivity(intent);
+
                    }
                    else{
+                    send.setVisibility(View.INVISIBLE);
+                    send.setIndeterminate(false);
+                    bt_register.setVisibility(View.VISIBLE);
+                    bt_register.setEnabled(true);
                     forget.startAnimation(shakeAnimation);
                 }
             }
@@ -187,6 +221,8 @@ public class Reg_Activity extends AppCompatActivity {
         bt_register = (Button) findViewById(R.id.Reg);
         iv_profile = (ImageView) findViewById(R.id.im_profile);
         dateofbirth=(TextInputLayout)findViewById(R.id.doblayout);
+        adhaar = (TextInputLayout)findViewById(R.id.adharlayout);
+        send=(ProgressBar) findViewById(R.id.submiting);
     }
     private boolean validateUsername(String string) {
         if (string.equals("")) {
@@ -270,5 +306,120 @@ public class Reg_Activity extends AppCompatActivity {
         if (!IMAGE_STATUS)
             Toast.makeText(this, "Select A Profile Picture", Toast.LENGTH_SHORT).show();
         return IMAGE_STATUS;
+    }
+    private boolean validateadhaar(String adhhar){
+        if (adhhar.equals("")) {
+            til_mobile.setError("Enter Your Mobile Number");
+            return false;
+        }
+        if (adhhar.length() != 12) {
+            adhaar.setError("Enter A Valid adhaar card number");
+            return false;
+        }
+        adhaar.setErrorEnabled(false);
+        return true;
+    }
+    class BackgroundTask extends AsyncTask<String,Void,String> {
+        Context ctx;
+        String add_info_url;
+        BackgroundTask(Context ctx){
+            this.ctx=ctx;
+        }
+        @Override
+        protected void onPreExecute() {
+            add_info_url ="http://159.65.144.10/miniproject/insertion.php";
+
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            try{
+                URL url=new URL(add_info_url);
+                HttpURLConnection conn= (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout( 10000 /*milliseconds*/ );
+                conn.setConnectTimeout( 15000 /* milliseconds */ );
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+                conn.setFixedLengthStreamingMode(args[0].getBytes().length);
+                //make some HTTP header nicety
+                conn.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+                conn.setRequestProperty("X-Requested-With", "XMLHttpRequest");
+                //open
+                conn.connect();
+                //setup send
+                OutputStream os = new BufferedOutputStream(conn.getOutputStream());
+                os.write(args[0].getBytes());
+                //clean up
+                os.flush();
+//                OutputStream os=httpURLConnection.getOutputStream();
+//                BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
+                int responseCode = conn.getResponseCode();
+                StringBuffer response;
+                System.out.println("responseCode" + responseCode);
+                switch (responseCode) {
+                     case 200:
+
+                        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        String inputLine;
+
+                        response = new StringBuffer();
+                        while ((inputLine = in.readLine()) != null) {
+                            response.append(inputLine);
+                        }
+                        in.close();
+
+                        return response.toString();
+                }
+
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return "No Interconnection";
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+        @Override
+        protected void onPostExecute(String r) {
+                if(r.contains("Successful Register!!")){
+                    Toast.makeText(ctx,"Successful Register!!Verify yourself in nearby TC",Toast.LENGTH_SHORT).show();
+                    Intent i=new Intent(ctx, NavigationActivity.class);
+                    startActivity(i);
+                    finish();
+                }else if(r.contains("Adhaar")){
+                    send.setVisibility(View.INVISIBLE);
+                    send.setIndeterminate(false);
+                    bt_register.setVisibility(View.VISIBLE);
+                    bt_register.setEnabled(true);
+                    Toast.makeText(ctx,"Already Register With this Adhaar Card",Toast.LENGTH_SHORT).show();
+                }else if(r.contains("Mobile")){
+                    send.setVisibility(View.INVISIBLE);
+                    send.setIndeterminate(false);
+                    bt_register.setVisibility(View.VISIBLE);
+                    bt_register.setEnabled(true);
+                    Toast.makeText(ctx,"Already Register With this Mobile Number",Toast.LENGTH_SHORT).show();
+                }else if(r.contains("EmailID")){
+                    send.setVisibility(View.INVISIBLE);
+                    send.setIndeterminate(false);
+                    bt_register.setVisibility(View.VISIBLE);
+                    bt_register.setEnabled(true);
+                    Toast.makeText(ctx,"Already Register With this EmailID",Toast.LENGTH_SHORT).show();
+                }
+                else if(r.contains("No Interconnection")){
+                    send.setVisibility(View.INVISIBLE);
+                    send.setIndeterminate(false);
+                    bt_register.setVisibility(View.VISIBLE);
+                    bt_register.setEnabled(true);
+                    Toast.makeText(ctx,"No Interconnection",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(ctx,"Try Again Internal Server Error",Toast.LENGTH_SHORT).show();
+                }
+        }
     }
 }

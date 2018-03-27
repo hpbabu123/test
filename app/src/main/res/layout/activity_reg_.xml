@@ -347,21 +347,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="2px"
                 android:background="@color/black" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
+                <ProgressBar
+                    android:id="@+id/submiting"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="invisible" />
 
+                <Button
+                    android:id="@+id/Reg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/curvebtn"
+                    android:text="Register"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold|italic" />
 
-            <Button
-                android:id="@+id/Reg"
-                android:layout_width="99dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="19dp"
-                android:layout_marginLeft="150dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/curvebtn"
-                android:text="Next" />
-
+            </RelativeLayout>
 
         </LinearLayout> </ScrollView>
 

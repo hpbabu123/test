@@ -86,22 +86,7 @@ public class Registerpage1Activity extends AppCompatActivity implements Location
             @Override
             public void onClick(View view) {
 
-                JSONObject params = new JSONObject();
-                try{        // Adding All values to Params.
-                        params.put("name", name);
-                        params.put("password",password);
-                        params.put("email", email);
-                        params.put("mobile",mobile);
-                        params.put("profile",profile);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.d("s", "onClick: cdxs");
 
-                }
-                String message = params.toString();
-                Log.d("s", "onClick: "+message);
-                BackgroundTask b=new BackgroundTask();
-                b.execute(message);
 
             }
         });
@@ -164,74 +149,5 @@ public class Registerpage1Activity extends AppCompatActivity implements Location
 
     }
 
-    class BackgroundTask extends AsyncTask<String,Void,String> {
 
-        String add_info_url;
-        @Override
-        protected void onPreExecute() {
-            add_info_url ="http://159.65.144.10/miniproject/insertion.php";
-
-        }
-
-        @Override
-        protected String doInBackground(String... args) {
-            try{
-                Log.d(";", "doInBackground: "+args[0]);
-                URL url=new URL(add_info_url);
-                HttpURLConnection conn= (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout( 10000 /*milliseconds*/ );
-                conn.setConnectTimeout( 15000 /* milliseconds */ );
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-                conn.setFixedLengthStreamingMode(args[0].getBytes().length);
-                //make some HTTP header nicety
-                conn.setRequestProperty("Content-Type", "application/json;charset=utf-8");
-                conn.setRequestProperty("X-Requested-With", "XMLHttpRequest");
-                //open
-                conn.connect();
-                //setup send
-                OutputStream os = new BufferedOutputStream(conn.getOutputStream());
-                os.write(args[0].getBytes());
-                //clean up
-                os.flush();
-                Log.d("kjhg", "doInBackground: done");
-//                OutputStream os=httpURLConnection.getOutputStream();
-//                BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
-                int responseCode = conn.getResponseCode();
-                StringBuffer response;
-                System.out.println("responseCode" + responseCode);
-                switch (responseCode) {
-                   // case 200:
-                     default:
-                        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                        String inputLine;
-
-                        response = new StringBuffer();
-                        while ((inputLine = in.readLine()) != null) {
-                            response.append(inputLine);
-                        }
-                        in.close();
-
-                        Log.d("def", "doInBackground: "+response.toString());
-                        return response.toString();
-                }
-
-
-
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
-        @Override
-        protected void onPostExecute(String r) {
-
-        }
-    }
 }
