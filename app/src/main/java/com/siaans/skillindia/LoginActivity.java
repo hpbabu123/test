@@ -217,7 +217,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String r) {
             Log.d("", "onPostExecute: "+r);
-            if(r.equals("Wrong Username or Password")){
+            if(r.contains("Wrong Username or Password")){
                 send.setVisibility(View.INVISIBLE);
                 send.setIndeterminate(false);
                 loginButton.setVisibility(View.VISIBLE);

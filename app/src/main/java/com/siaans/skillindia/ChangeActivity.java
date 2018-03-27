@@ -21,24 +21,27 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.siaans.skillindia.activity.TCNavActivity;
+import com.siaans.skillindia.activity.TraineeNavActivity;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class NewPassActivity extends AppCompatActivity {
-    private static EditText npass,cnfrmpass;
+public class ChangeActivity extends AppCompatActivity {
+    private static EditText npass,cnfrmpass,oldpass;
     private static CheckBox show_pass;
     private static TextView submit;
     private static Animation shake;
     private static LinearLayout forget;
     String res,flag;
-    ProgressBar send;String email,pass1;
+    ProgressBar send;String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_pass);
+        setContentView(R.layout.activity_change);
         //intizaling the variables
         send=findViewById(R.id.submiting);
         npass = findViewById(R.id.edit_npass);
@@ -48,6 +51,7 @@ public class NewPassActivity extends AppCompatActivity {
         shake = AnimationUtils.loadAnimation(this,R.anim.shake);
         forget = findViewById(R.id.newpass_Layout);
         show_pass=findViewById(R.id.show_hide_password);
+        oldpass=findViewById(R.id.edit_oldpass);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,11 +92,25 @@ public class NewPassActivity extends AppCompatActivity {
         submit.setEnabled(false);
         Intent i=getIntent();
         Bundle bun=i.getExtras();
-        Boolean pass=(validatePassword(npass.getText().toString())&&validateConfirm(cnfrmpass.getText().toString()));
+        Boolean pass=(validateOldpass(oldpass.getText().toString(),bun.getString("oldpass"))&&validatePassword(npass.getText().toString())&&validateConfirm(cnfrmpass.getText().toString()));
         flag=bun.getString("flag");
         if(pass) {
-            NewPassActivity.BackgroundTask b = new NewPassActivity.BackgroundTask(this);
-            b.execute(bun.getString("Email"), bun.getString("flag"));
+            ChangeActivity.BackgroundTask b = new ChangeActivity.BackgroundTask(this);
+            b.execute(bun.getString("Email"), bun.getString("flag"),bun.getString("oldpass"));
+        }
+    }
+    private boolean validateOldpass(String string,String old) {
+        if (string.equals(old)) {
+
+            return true;
+        } else {
+
+            send.setVisibility(View.INVISIBLE);
+            send.setIndeterminate(false);
+            submit.setVisibility(View.VISIBLE);
+            submit.setEnabled(true);
+            Toast.makeText(this,"Old password is incorrect",Toast.LENGTH_SHORT).show();
+            return false;
         }
     }
     private boolean validatePassword(String string) {
@@ -159,6 +177,7 @@ public class NewPassActivity extends AppCompatActivity {
         protected String doInBackground(String... args) {
             try {
                 URL url = new URL(add_info_url + "?email=" + args[0] + "&password=" + npass.getText().toString()+"&flag="+args[1]);
+               Log.d("sjh","dlfkj"+url.toString());
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.connect();
                 int responseCode = conn.getResponseCode();
@@ -168,6 +187,7 @@ public class NewPassActivity extends AppCompatActivity {
                     case 200:
                     default:
                         BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        Log.d("k", "doInBackground: f");
                         String inputLine;
 
                         response = new StringBuffer();
@@ -179,6 +199,7 @@ public class NewPassActivity extends AppCompatActivity {
                         return response.toString();
                 }
             }catch (Exception e) {
+                Log.d("", "doInBackground: +error");
             }
             return null;
         }
@@ -189,15 +210,16 @@ public class NewPassActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String r) {
+            Log.d("", "onPostExecute: "+r);
             if(res.toString().equals("Updated")) {
                 Toast.makeText(ctx,"Password updated",Toast.LENGTH_SHORT).show();
                 if(flag.equals("1")) {
-                    Intent i = new Intent(NewPassActivity.this, TCloginActivity.class);
+                    Intent i = new Intent(ChangeActivity.this, TCloginActivity.class);
                     startActivity(i);
                     finish();
                 }
                 else{
-                    Intent i = new Intent(NewPassActivity.this, LoginActivity.class);
+                    Intent i = new Intent(ChangeActivity.this, LoginActivity.class);
                     startActivity(i);
                     finish();
                 }
@@ -209,14 +231,14 @@ public class NewPassActivity extends AppCompatActivity {
                 submit.setEnabled(true);
                 Toast.makeText(ctx,"Not updated! Internal Server Error",Toast.LENGTH_SHORT).show();
                 if(flag.equals("1")) {
-                    Intent i = new Intent(NewPassActivity.this, TCloginActivity.class);
+                    Intent i = new Intent(ChangeActivity.this, TCNavActivity.class);
                     startActivity(i);
-                    finish();
+                    finishAffinity();
                 }
                 else{
-                    Intent i = new Intent(NewPassActivity.this,LoginActivity.class);
+                    Intent i = new Intent(ChangeActivity.this, TraineeNavActivity.class);
                     startActivity(i);
-                    finish();
+                    finishAffinity();
                 }
             }
         }

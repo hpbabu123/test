@@ -13,13 +13,9 @@
 
             android:title="webinars" />
         <item
-            android:id="@+id/nav_Attendance"
+            android:id="@+id/nav_job"
 
-            android:title="Attendance" />
-        <item
-            android:id="@+id/nav_Reviews"
-
-            android:title="Reviews" />
+            android:title="Job" />
         <item
             android:id="@+id/nav_Certificates"
 
