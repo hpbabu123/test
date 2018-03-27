@@ -163,8 +163,7 @@ public class TCloginActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            add_info_url = add_info_url+"?EMAILID='"+args[0]+"'&PASSWORD='"+args[1]+"'";
-            Log.d("sdf", "doInBackground: "+add_info_url);
+            add_info_url = add_info_url+"?EMAILID="+args[0]+"&PASSWORD="+args[1];
             try {
                 URL url = new URL(add_info_url);
                 Log.d("1", "doInBackground: "+url.toString());
