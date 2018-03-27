@@ -122,9 +122,9 @@ public class Reg_Activity extends AppCompatActivity {
                         b.put("password", password);
                         b.put("email", email);
                         b.put("mobile", mobile);
-                        b.put("profile", profile);
+                       // b.put("profile", profile);
                         b.put("adhaar", adhharc);
-                        b.put("DOB", dateofbirth);
+                        b.put("DOB", dob_date);
                         b.put("Gender",gend );
                         b.put("Address",addres);
                         b.put("pincode",pincode);
@@ -426,6 +426,7 @@ public class Reg_Activity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String r) {
+            Log.d("kdcn", "onPostExecute: "+r);
                 if(r.contains("Successful Register!!")){
                     Toast.makeText(ctx,"Successfully Register!!Verify yourself in nearby TC",Toast.LENGTH_SHORT).show();
                     Intent i=new Intent(ctx, NavigationActivity.class);
@@ -458,6 +459,10 @@ public class Reg_Activity extends AppCompatActivity {
                     Toast.makeText(ctx,"No Interconnection",Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    send.setVisibility(View.INVISIBLE);
+                    send.setIndeterminate(false);
+                    bt_register.setVisibility(View.VISIBLE);
+                    bt_register.setEnabled(true);
                     Toast.makeText(ctx,"Try Again Internal Server Error",Toast.LENGTH_SHORT).show();
                 }
         }
