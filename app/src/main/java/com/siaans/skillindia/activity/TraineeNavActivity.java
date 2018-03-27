@@ -24,8 +24,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.siaans.skillindia.Chngepass;
 import com.siaans.skillindia.ExDialog;
 import com.siaans.skillindia.LoginActivity;
+import com.siaans.skillindia.NewPassActivity;
 import com.siaans.skillindia.R;
 import com.siaans.skillindia.fragment.AttendanceFragment;
 import com.siaans.skillindia.fragment.CertificateFragment;
@@ -36,10 +38,13 @@ import com.siaans.skillindia.fragment.ReviewsFragment;
 import com.siaans.skillindia.fragment.WebinarsFragment;
 import com.siaans.skillindia.other.CircleTransform;
 
-public class TraineeNavActivity extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class TraineeNavActivity extends AppCompatActivity implements Chngepass.exampledialogue {
     public SharedPreferences.Editor loginPrefsEditor;
     public  SharedPreferences loginPreferences;
-    private String saveLogin;
+    private String saveLogin,Type,email;
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
@@ -85,8 +90,9 @@ public class TraineeNavActivity extends AppCompatActivity {
         activityTitles = getResources().getStringArray(R.array.nav_item_trainee_activity_titles);
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
-
+        Type=loginPreferences.getString("lgn","");
         saveLogin = loginPreferences.getString("Trainee","");
+        email=loginPreferences.getString("username","");
         Log.d("'", "onCreate: "+saveLogin);
 
 //        Intent i = getIntent();
@@ -119,8 +125,16 @@ public class TraineeNavActivity extends AppCompatActivity {
 //    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     private void loadNavHeader() {
         // name, website
-        txtName.setText("Ankit");
-        txtWebsite.setText("www.ankittawaleinfo.com");
+
+        JSONObject jo= null;
+        try {
+            jo = new JSONObject(saveLogin);
+            txtName.setText(jo.getString("name"));
+            txtWebsite.setText(jo.getString("email"));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         // loading header background image
         Glide.with(this).load(urlNavHeaderBg)
@@ -178,6 +192,7 @@ public class TraineeNavActivity extends AppCompatActivity {
                 // home
                 ProfileFragment profileFragment = new ProfileFragment();
                    b.putString("json",saveLogin);
+                   b.putString("type",Type);
                 profileFragment.setArguments(b);
                 return profileFragment;
             case 1:
@@ -332,5 +347,20 @@ public class TraineeNavActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void old(Boolean check) {
+        if(check){
+            Intent i=new Intent(this,NewPassActivity.class);
+            Bundle b=new Bundle();
+            b.putString("Email",email);
+            b.putString("flag", "0");
+            i.putExtras(b);
+            startActivity(i);
+        }
+        else{
+            Toast.makeText(this,"this is invalid password",Toast.LENGTH_SHORT).show();
+        }
     }
 }

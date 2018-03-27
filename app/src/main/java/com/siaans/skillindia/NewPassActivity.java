@@ -6,10 +6,15 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -22,7 +27,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class NewPassActivity extends AppCompatActivity {
-    private static EditText npass;
+    private static EditText npass,cnfrmpass;
+    private static CheckBox show_pass;
     private static TextView submit;
     private static Animation shake;
     private static LinearLayout forget;
@@ -35,16 +41,42 @@ public class NewPassActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_pass);
         //intizaling the variables
         send=findViewById(R.id.submiting);
-        npass = findViewById(R.id.npass);
+        npass = findViewById(R.id.edit_npass);
+        cnfrmpass = findViewById(R.id.edit_cnfrmpass);
         submit = findViewById(R.id.npass_submit);
         send=findViewById(R.id.submiting);
         shake = AnimationUtils.loadAnimation(this,R.anim.shake);
         forget = findViewById(R.id.newpass_Layout);
+        show_pass=findViewById(R.id.show_hide_password);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 submitButtonTask();
             }
+        });
+        show_pass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton button,
+                                         boolean isChecked) {
+                // If it is checkec then show password else hide
+                // password
+                if (isChecked) {
+                    show_pass.setText(R.string.hide_pwd);// change
+                    // checkbox
+                    // text
+                    npass.setInputType(InputType.TYPE_CLASS_TEXT);
+                    npass.setTransformationMethod(HideReturnsTransformationMethod
+                            .getInstance());// show password
+                } else {
+                    show_pass.setText(R.string.show_pwd);// change
+                    // checkbox
+                    // text
+                    npass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    npass.setTransformationMethod(PasswordTransformationMethod.getInstance());// hide password
+                }
+
+            }
+
         });
     }
 
@@ -56,7 +88,7 @@ public class NewPassActivity extends AppCompatActivity {
         submit.setEnabled(false);
         Intent i=getIntent();
         Bundle bun=i.getExtras();
-        Boolean pass=validatePassword(npass.getText().toString());
+        Boolean pass=(validatePassword(npass.getText().toString())&&validateConfirm(cnfrmpass.getText().toString()));
         flag=bun.getString("flag");
         if(pass) {
             NewPassActivity.BackgroundTask b = new NewPassActivity.BackgroundTask(this);
@@ -86,6 +118,28 @@ public class NewPassActivity extends AppCompatActivity {
             Toast.makeText(this,"Minimum 8 Characters",Toast.LENGTH_SHORT).show();
             return false;
         }
+        return true;
+    }
+    private boolean validateConfirm(String string) {
+        if (string.equals("")) {
+            send.setVisibility(View.INVISIBLE);
+            send.setIndeterminate(false);
+            submit.setVisibility(View.VISIBLE);
+            submit.setEnabled(true);
+
+            Toast.makeText(this,"Re-Enter Your Confirm Password",Toast.LENGTH_SHORT).show();
+            cnfrmpass.setError("Re-Enter Your Password");
+            return false;
+        } else if (!string.equals(npass.getText().toString())) {
+            send.setVisibility(View.INVISIBLE);
+            send.setIndeterminate(false);
+            submit.setVisibility(View.VISIBLE);
+            submit.setEnabled(true);
+
+            Toast.makeText(this,"Confrim Password Do Not Match!",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        cnfrmpass.setError(null);
         return true;
     }
     class BackgroundTask extends AsyncTask<String,Void,String> {

@@ -182,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            add_info_url = add_info_url+"?EMAILID='"+args[0]+"'&PASSWORD='"+args[1]+"'";
+            add_info_url = add_info_url+"?EMAILID="+args[0]+"&PASSWORD="+args[1];
             Log.d("sdf", "doInBackground: "+add_info_url);
             try {
                 URL url = new URL(add_info_url);
@@ -205,8 +205,9 @@ public class LoginActivity extends AppCompatActivity {
 
             }catch (Exception e){
                 e.printStackTrace();
+
             }
-            return null;
+            return "Not a Internet Connection";
         }
 
         @Override
@@ -222,6 +223,14 @@ public class LoginActivity extends AppCompatActivity {
                 loginButton.setVisibility(View.VISIBLE);
                 loginButton.setEnabled(true);
                 Toast.makeText(LoginActivity.this,"Invalid username & password",Toast.LENGTH_LONG).show();
+
+            }
+            else if(r.equals("Not a Internet Connection")){
+                send.setVisibility(View.INVISIBLE);
+                send.setIndeterminate(false);
+                loginButton.setVisibility(View.VISIBLE);
+                loginButton.setEnabled(true);
+                Toast.makeText(LoginActivity.this,"Not a Internet Connection",Toast.LENGTH_LONG).show();
 
             }
             else{

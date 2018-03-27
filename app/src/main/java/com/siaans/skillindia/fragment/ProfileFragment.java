@@ -2,19 +2,25 @@ package com.siaans.skillindia.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.vision.text.Text;
+import com.siaans.skillindia.Chngepass;
+import com.siaans.skillindia.ExDialog;
+import com.siaans.skillindia.NewPassActivity;
 import com.siaans.skillindia.R;
 import com.siaans.skillindia.other.CircleTransform;
 
@@ -36,7 +42,9 @@ public class ProfileFragment extends Fragment {
     TextView mobile;
     TextView address;
     TextView pincode;
-    Spinner gendar;
+    TextView gender;
+    TextView varification;
+    Button chngpass;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -48,12 +56,31 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_profile, container, false);
+
         Bundle b = getArguments();
-       String str = b.getString("json");
+       final String str = b.getString("json");
+       final String type=b.getString("type");
+
+       chngpass= root.findViewById(R.id.chngpass);
+       chngpass.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               openDialogue(str,type);
+           }
+       });
         Log.d("", "onCreateView: "+str);
        info(str);
         return root;
+    }
 
+    public void openDialogue(String str,String type){
+        try {
+            JSONObject jo=new JSONObject(str);
+            Chngepass exDialog=new Chngepass(jo.getString("name"),jo.getString("emailid"),type,getContext());
+            exDialog.show(getChildFragmentManager(),"example dialog");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     void info(String str){
@@ -87,21 +114,20 @@ public class ProfileFragment extends Fragment {
 
             pincode = root.findViewById(R.id.pincode);
             pincode.setText(jo.getString("pincode"));
-            String[] State=getResources().getStringArray(R.array.gender);
-            gendar = root.findViewById(R.id.gendar);
-            Log.d("", "info: "+jo.getString("gendar")+jo.getString("gendar").equals("M"));
-            for(int i=0;i<State.length;i++) {
-                if (jo.getString("gendar").equals("F") && State[i].equals("Female")) {
-                    gendar.setSelection(i);
-                    break;
-                } else if (jo.getString("gendar").equals("M")&& State[i].equals("Male")) {
-                    gendar.setSelection(i);
-                    break;
-                } else {
-                    gendar.setSelection(i);
-                }
+
+            gender = root.findViewById(R.id.gender);
+
+            if(jo.getString("gendar").equals("M")){
+                gender.setText("Male");
+            }else if(jo.getString("gendar").equals("F")){
+                gender.setText("Female");
+            }else{
+                gender.setText("Other");
             }
 
+
+            varification = root.findViewById(R.id.varification);
+            varification.setText(jo.getString("verification"));
 
 
 
@@ -111,5 +137,6 @@ public class ProfileFragment extends Fragment {
         Log.d("data",str);
 
     }
+
 
 }
