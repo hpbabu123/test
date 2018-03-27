@@ -17,6 +17,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,12 +35,15 @@ import com.siaans.skillindia.fragment.BatchFragment;
 import com.siaans.skillindia.fragment.JobFragment;
 import com.siaans.skillindia.fragment.NewsFragment;
 import com.siaans.skillindia.fragment.ProfileFragment;
+import com.siaans.skillindia.fragment.TCProfileFragment;
 import com.siaans.skillindia.fragment.VarificationFragment;
 import com.siaans.skillindia.fragment.WebinarsFragment;
 import com.siaans.skillindia.other.CircleTransform;
 
 public class TCNavActivity extends AppCompatActivity {
-
+    public SharedPreferences.Editor loginPrefsEditor;
+    public  SharedPreferences loginPreferences;
+    private String saveLogin,Type;
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
@@ -83,6 +87,11 @@ public class TCNavActivity extends AppCompatActivity {
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
 //        imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
         activityTitles = getResources().getStringArray(R.array.nav_item_tc_activity_titles);
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
+        Type=loginPreferences.getString("lgn","");
+        saveLogin = loginPreferences.getString("Trainingcentre","");
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,10 +170,16 @@ public class TCNavActivity extends AppCompatActivity {
         invalidateOptionsMenu();
     }
     private Fragment getHomeFragment() {
+        Bundle b=new Bundle();
         switch (navItemIndex) {
             case 0:
-                ProfileFragment profileFragment = new ProfileFragment();
-                return profileFragment;
+                TCProfileFragment tcprofileFragment = new TCProfileFragment();
+                Log.d("", "getHomeFragment: "+saveLogin);
+                b.putString("json",saveLogin);
+                b.putString("type",Type);
+                tcprofileFragment.setArguments(b);
+
+                return tcprofileFragment;
             case 4:
                 NewsFragment newsFragment = new NewsFragment();
                 return newsFragment;
@@ -212,7 +227,7 @@ public class TCNavActivity extends AppCompatActivity {
                         navItemIndex = 4;
                         CURRENT_TAG = TAG_NEWS;
                         break;
-                    case R.id.nav_Attendance:
+                    case R.id.nav_tc_Attendance:
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_ATTEND;
                         break;

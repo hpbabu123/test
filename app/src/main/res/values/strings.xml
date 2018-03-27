@@ -75,8 +75,7 @@
         <item>Profile</item>
         <item>News</item>
         <item>Webinars</item>
-        <item>Attendance</item>
-        <item>Reviews</item>
+        <item>Job Apply</item>
         <item>Certificates</item>
 
     </string-array>
@@ -90,7 +89,6 @@
         <item>News</item>
         <item>Webinars</item>
         <item>Job Availablilty</item>
-
 
 
     </string-array>

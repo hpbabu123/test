@@ -167,20 +167,31 @@ public class TCloginActivity extends AppCompatActivity {
             Log.d("sdf", "doInBackground: "+add_info_url);
             try {
                 URL url = new URL(add_info_url);
+                Log.d("1", "doInBackground: "+url.toString());
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                Log.d("2", "doInBackground: "+url.toString());
                 httpURLConnection.setReadTimeout( 10000 /*milliseconds*/ );
+                Log.d("3", "doInBackground: "+url.toString());
                 httpURLConnection.setConnectTimeout( 15000 /* milliseconds */ );
+                Log.d("4", "doInBackground: "+url.toString());
                 InputStream inputStream = httpURLConnection.getInputStream();
+                Log.d("5", "doInBackground: "+url.toString());
                 BufferedReader buff=new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                Log.d("6", "doInBackground: "+url.toString());
                 String r="";
+                Log.d("7", "doInBackground: "+url.toString());
                 String l="";
+                Log.d("8", "doInBackground: "+url.toString());
                 while((l=buff.readLine())!=null){
                     r+=l;
                 }
+                Log.d("9", "doInBackground: "+url.toString());
                 buff.close();
+                Log.d("10", "doInBackground: "+url.toString());
                 inputStream.close();
+                Log.d("11", "doInBackground: "+url.toString());
                 httpURLConnection.disconnect();
-
+                Log.d("", "doInBackground: "+r);
                 return r;
 
             }catch (Exception e){
@@ -195,6 +206,7 @@ public class TCloginActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String r) {
+            Log.d("g", "doInBackground: "+r.toString());
             if(r.equals("Wrong Username or Password")){
                 send.setVisibility(View.INVISIBLE);
                 send.setIndeterminate(false);
@@ -215,7 +227,8 @@ public class TCloginActivity extends AppCompatActivity {
                 loginPrefsEditor.putBoolean("saveLogin", true);
                 loginPrefsEditor.putString("username", email);
                 loginPrefsEditor.putString("password", pass1);
-                loginPrefsEditor.putString("lgn","Trainee");
+                loginPrefsEditor.putString("lgn","Trainingcentre");
+                loginPrefsEditor.putString("Trainingcentre",r);
                 loginPrefsEditor.commit();
                 Intent intent = new Intent(TCloginActivity.this, TCNavActivity.class);
                 startActivity(intent);

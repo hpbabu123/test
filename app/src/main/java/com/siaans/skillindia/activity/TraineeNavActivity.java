@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.siaans.skillindia.Chngepass;
+
 import com.siaans.skillindia.ExDialog;
 import com.siaans.skillindia.LoginActivity;
 import com.siaans.skillindia.NewPassActivity;
@@ -32,6 +32,7 @@ import com.siaans.skillindia.R;
 import com.siaans.skillindia.fragment.AttendanceFragment;
 import com.siaans.skillindia.fragment.CertificateFragment;
 import com.siaans.skillindia.fragment.HomeFragment;
+import com.siaans.skillindia.fragment.JobFragment;
 import com.siaans.skillindia.fragment.NewsFragment;
 import com.siaans.skillindia.fragment.ProfileFragment;
 import com.siaans.skillindia.fragment.ReviewsFragment;
@@ -41,7 +42,7 @@ import com.siaans.skillindia.other.CircleTransform;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class TraineeNavActivity extends AppCompatActivity implements Chngepass.exampledialogue {
+public class TraineeNavActivity extends AppCompatActivity {
     public SharedPreferences.Editor loginPrefsEditor;
     public  SharedPreferences loginPreferences;
     private String saveLogin,Type,email;
@@ -58,8 +59,7 @@ public class TraineeNavActivity extends AppCompatActivity implements Chngepass.e
 
     private static final String TAG_NEWS = "news";
     private static final String TAG_WEBINAR="webinar";
-    private static final String TAG_ATTEND="attendance";
-    private static final String TAG_REVIEWS="reviews";
+    private static final String TAG_JOB="job";
     private static final String TAG_CERTIFICATE="certificate";
     private static final String TAG_PROFILE="profile";
     public static String CURRENT_TAG = TAG_PROFILE;
@@ -130,7 +130,7 @@ public class TraineeNavActivity extends AppCompatActivity implements Chngepass.e
         try {
             jo = new JSONObject(saveLogin);
             txtName.setText(jo.getString("name"));
-            txtWebsite.setText(jo.getString("email"));
+            txtWebsite.setText(jo.getString("emailid"));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -202,12 +202,9 @@ public class TraineeNavActivity extends AppCompatActivity implements Chngepass.e
                 WebinarsFragment webinarsFragment = new WebinarsFragment();
                 return webinarsFragment;
             case 3:
-                AttendanceFragment attendanceFragment= new AttendanceFragment();
-                return attendanceFragment;
+                JobFragment jobFragment = new JobFragment();
+                return jobFragment;
             case 4:
-                ReviewsFragment reviewsFragment= new ReviewsFragment();
-                return reviewsFragment;
-            case 5:
                 CertificateFragment certificatesFragment= new CertificateFragment();
                 return certificatesFragment;
             default:
@@ -246,16 +243,11 @@ public class TraineeNavActivity extends AppCompatActivity implements Chngepass.e
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_WEBINAR;
                         break;
-                    case R.id.nav_Attendance:
+                    case R.id.nav_job:
                         navItemIndex = 3;
-                        CURRENT_TAG = TAG_ATTEND;
-                        break;
-                    case R.id.nav_Reviews:
-                        navItemIndex = 4;
-                        CURRENT_TAG = TAG_REVIEWS;
-                        break;
+                        CURRENT_TAG = TAG_JOB;
                     case R.id.nav_Certificates:
-                        navItemIndex = 5;
+                        navItemIndex = 4;
                         CURRENT_TAG = TAG_CERTIFICATE;
                         break;
 
@@ -349,18 +341,4 @@ public class TraineeNavActivity extends AppCompatActivity implements Chngepass.e
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void old(Boolean check) {
-        if(check){
-            Intent i=new Intent(this,NewPassActivity.class);
-            Bundle b=new Bundle();
-            b.putString("Email",email);
-            b.putString("flag", "0");
-            i.putExtras(b);
-            startActivity(i);
-        }
-        else{
-            Toast.makeText(this,"this is invalid password",Toast.LENGTH_SHORT).show();
-        }
-    }
 }

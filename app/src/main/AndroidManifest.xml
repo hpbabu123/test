@@ -39,8 +39,9 @@
         <activity android:name=".TCForgotActivity" />
         <activity android:name=".activity.TraineeNavActivity" />
         <activity android:name=".OtpTCActivity" />
-        <activity android:name=".NewPassActivity"></activity>
-        <activity android:name=".activity.TCNavActivity"></activity>
+        <activity android:name=".NewPassActivity" />
+        <activity android:name=".activity.TCNavActivity" />
+        <activity android:name=".ChangeActivity"></activity>
     </application>
 
 </manifest>

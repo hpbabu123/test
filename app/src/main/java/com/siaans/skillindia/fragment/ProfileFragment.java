@@ -17,17 +17,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.android.gms.vision.text.Text;
-import com.siaans.skillindia.Chngepass;
-import com.siaans.skillindia.ExDialog;
-import com.siaans.skillindia.NewPassActivity;
+import com.siaans.skillindia.ChangeActivity;
 import com.siaans.skillindia.R;
 import com.siaans.skillindia.other.CircleTransform;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,7 +61,19 @@ public class ProfileFragment extends Fragment {
        chngpass.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               openDialogue(str,type);
+               try {
+                   JSONObject jo= new JSONObject(str);
+                   Intent i=new Intent(getActivity(), ChangeActivity.class);
+                   Bundle b=new Bundle();
+                   b.putString("Email",jo.getString("emailid"));
+                   b.putString("flag","0");
+                   b.putString("oldpass",jo.getString("password"));
+                   i.putExtras(b);
+                   startActivity(i);
+
+               } catch (JSONException e) {
+                   e.printStackTrace();
+               }
            }
        });
         Log.d("", "onCreateView: "+str);
@@ -73,15 +81,6 @@ public class ProfileFragment extends Fragment {
         return root;
     }
 
-    public void openDialogue(String str,String type){
-        try {
-            JSONObject jo=new JSONObject(str);
-            Chngepass exDialog=new Chngepass(jo.getString("name"),jo.getString("emailid"),type,getContext());
-            exDialog.show(getChildFragmentManager(),"example dialog");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     void info(String str){
         try {
