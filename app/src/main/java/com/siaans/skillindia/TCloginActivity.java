@@ -186,7 +186,7 @@ public class TCloginActivity extends AppCompatActivity {
             }catch (Exception e){
                 e.printStackTrace();
             }
-            return null;
+            return "Not a Internet Connection";
         }
 
         @Override
@@ -201,6 +201,14 @@ public class TCloginActivity extends AppCompatActivity {
                 loginButton.setVisibility(View.VISIBLE);
                 loginButton.setEnabled(true);
                 Toast.makeText(TCloginActivity.this,"Invalid username & password",Toast.LENGTH_LONG).show();
+
+            }
+            else if(r.equals("Not a Internet Connection")){
+                send.setVisibility(View.INVISIBLE);
+                send.setIndeterminate(false);
+                loginButton.setVisibility(View.VISIBLE);
+                loginButton.setEnabled(true);
+                Toast.makeText(TCloginActivity.this,"Not a Internet Connection",Toast.LENGTH_LONG).show();
 
             }
             else{
