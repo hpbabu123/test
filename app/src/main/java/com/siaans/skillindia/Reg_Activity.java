@@ -22,7 +22,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -49,14 +52,15 @@ public class Reg_Activity extends AppCompatActivity {
     Button bt_register;
     TextInputLayout til_name, til_last, til_password, til_confirmPass, til_mobile, til_email,adhaar;
     ImageView iv_profile;
-    String name, last, password, email, mobile,confirm,profile,adhharc;
+    String name,gend, last, password, email, mobile,confirm,profile,adhharc;
 //    RequestQueue requestQueue;
     boolean IMAGE_STATUS = false;
     Bitmap profilePicture;
     private static Animation shakeAnimation;
     TextInputLayout dateofbirth;
     ProgressBar send;
-
+    RadioGroup gender;
+    LinearLayout genderLayout;
     private static RelativeLayout forget;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +101,8 @@ public class Reg_Activity extends AppCompatActivity {
                 email = til_email.getEditText().getText().toString();
                 mobile = til_mobile.getEditText().getText().toString();
                 confirm = til_confirmPass.getEditText().getText().toString();
-                adhharc=adhaar.getEditText().getText().toString();
+                adhharc = adhaar.getEditText().getText().toString();
+
                 if (    //perform validation by calling all the validate functions inside the IF condition
                         validateUsername(last) &&
                                 validateName(name) &&
@@ -105,35 +110,35 @@ public class Reg_Activity extends AppCompatActivity {
                                 validateConfirm(confirm) &&
                                 validateMobile(mobile) &&
                                 validateEmail(email) &&
-                                validateProfile() && validateadhaar(adhharc)
+                                validateProfile() && validateadhaar(adhharc) && validategender(gender)
                         ) {
                     //Validation Success
 
-                        JSONObject b = new JSONObject();
-                        try{        // Adding All values to Params.
-                            b.put("name", name);
-                        b.put("username", last);
+                    JSONObject b = new JSONObject();
+                    try {        // Adding All values to Params.
+                        b.put("name", name + last);
                         b.put("password", password);
                         b.put("email", email);
                         b.put("mobile", mobile);
                         b.put("profile", profile);
-                        b.put("adhaar",adhharc);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.d("s", "onClick: cdxs");
+                        b.put("adhaar", adhharc);
+                        b.put("DOB", dateofbirth);
+                        b.put("Gender",gend );
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.d("s", "onClick: cdxs");
 
-                        }
-                        String message = b.toString();
-                        Log.d("s", "onClick: "+message);
-                        Reg_Activity.BackgroundTask bkk=new Reg_Activity.BackgroundTask(Reg_Activity.this);
-                        bkk.execute(message);
+                    }
+                    String message = b.toString();
+                    Log.d("s", "onClick: " + message);
+                    Reg_Activity.BackgroundTask bkk = new Reg_Activity.BackgroundTask(Reg_Activity.this);
+                    bkk.execute(message);
 //
 //
 //                        intent.putExtras(b);
 //                        startActivity(intent);
 
-                   }
-                   else{
+                } else {
                     send.setVisibility(View.INVISIBLE);
                     send.setIndeterminate(false);
                     bt_register.setVisibility(View.VISIBLE);
@@ -223,6 +228,8 @@ public class Reg_Activity extends AppCompatActivity {
         dateofbirth=(TextInputLayout)findViewById(R.id.doblayout);
         adhaar = (TextInputLayout)findViewById(R.id.adharlayout);
         send=(ProgressBar) findViewById(R.id.submiting);
+        gender=(RadioGroup)findViewById(R.id.gen);
+        genderLayout=(LinearLayout)findViewById(R.id.genderLayout);
     }
     private boolean validateUsername(String string) {
         if (string.equals("")) {
@@ -263,7 +270,20 @@ public class Reg_Activity extends AppCompatActivity {
         til_password.setErrorEnabled(false);
         return true;
     }
-
+    private boolean validategender(RadioGroup gender){
+        if(gender.isSelected()){
+            int selectedId = gender.getCheckedRadioButtonId();
+            // find the radiobutton by returned id
+             RadioButton b = (RadioButton) findViewById(selectedId);
+                gend= String.valueOf(b.getText());
+            Log.d("d", "validategender: "+gend.toString());
+                return true;
+        }
+        else{
+            Toast.makeText(this,"Select one of the gender!!",Toast.LENGTH_SHORT).show();
+             return false;
+        }
+    }
     private boolean validateConfirm(String string) {
         if (string.equals("")) {
             til_confirmPass.setError("Re-Enter Your Password");
