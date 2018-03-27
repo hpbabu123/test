@@ -50,9 +50,9 @@ public class Reg_Activity extends AppCompatActivity {
     int year_x,month_y,date_z;
     static final int DILOG_ID = 0;
     Button bt_register;
-    TextInputLayout til_name, til_last, til_password, til_confirmPass, til_mobile, til_email,adhaar;
+    TextInputLayout til_name, til_last, til_password, til_confirmPass, til_mobile, til_email,adhaar,address,pincodelayout;
     ImageView iv_profile;
-    String name,gend, last, password, email, mobile,confirm,profile,adhharc;
+    String name,gend, last, password, email, mobile,confirm,profile,adhharc,addres,pincode;
 //    RequestQueue requestQueue;
     boolean IMAGE_STATUS = false;
     Bitmap profilePicture;
@@ -102,7 +102,8 @@ public class Reg_Activity extends AppCompatActivity {
                 mobile = til_mobile.getEditText().getText().toString();
                 confirm = til_confirmPass.getEditText().getText().toString();
                 adhharc = adhaar.getEditText().getText().toString();
-
+                addres = address.getEditText().getText().toString();
+                pincode = pincodelayout.getEditText().getText().toString();
                 if (    //perform validation by calling all the validate functions inside the IF condition
                         validateUsername(last) &&
                                 validateName(name) &&
@@ -110,7 +111,8 @@ public class Reg_Activity extends AppCompatActivity {
                                 validateConfirm(confirm) &&
                                 validateMobile(mobile) &&
                                 validateEmail(email) &&
-                                validateProfile() && validateadhaar(adhharc) && validategender(gender)
+                                validateProfile() && validateadhaar(adhharc) && validategender(gender)&& validatepincode(pincode)
+
                         ) {
                     //Validation Success
 
@@ -124,6 +126,8 @@ public class Reg_Activity extends AppCompatActivity {
                         b.put("adhaar", adhharc);
                         b.put("DOB", dateofbirth);
                         b.put("Gender",gend );
+                        b.put("Address",addres);
+                        b.put("pincode",pincode);
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("s", "onClick: cdxs");
@@ -230,6 +234,8 @@ public class Reg_Activity extends AppCompatActivity {
         send=(ProgressBar) findViewById(R.id.submiting);
         gender=(RadioGroup)findViewById(R.id.gen);
         genderLayout=(LinearLayout)findViewById(R.id.genderLayout);
+        address=(TextInputLayout) findViewById(R.id.addresslayout);
+        pincodelayout=(TextInputLayout) findViewById(R.id.pincodelayout);
     }
     private boolean validateUsername(String string) {
         if (string.equals("")) {
@@ -271,17 +277,18 @@ public class Reg_Activity extends AppCompatActivity {
         return true;
     }
     private boolean validategender(RadioGroup gender){
-        if(gender.isSelected()){
-            int selectedId = gender.getCheckedRadioButtonId();
-            // find the radiobutton by returned id
-             RadioButton b = (RadioButton) findViewById(selectedId);
-                gend= String.valueOf(b.getText());
-            Log.d("d", "validategender: "+gend.toString());
-                return true;
+        if(gender.getCheckedRadioButtonId() == -1){
+
+            Toast.makeText(this,"Select one of the gender!!",Toast.LENGTH_SHORT).show();
+            return false;
         }
         else{
-            Toast.makeText(this,"Select one of the gender!!",Toast.LENGTH_SHORT).show();
-             return false;
+            int selectedId = gender.getCheckedRadioButtonId();
+            // find the radiobutton by returned id
+            RadioButton b = (RadioButton) findViewById(selectedId);
+            gend= String.valueOf(b.getText());
+            Log.d("d", "validategender: "+gend.toString());
+            return true;
         }
     }
     private boolean validateConfirm(String string) {
@@ -310,6 +317,19 @@ public class Reg_Activity extends AppCompatActivity {
         return true;
     }
 
+    private boolean validatepincode(String string) {
+        if (string.equals("")) {
+            pincodelayout.setError("Enter Your pincode");
+            return false;
+        }
+        if (string.length() != 6) {
+            pincodelayout.setError("Enter A Valid pincode");
+            return false;
+        }
+        pincodelayout.setErrorEnabled(false);
+        return true;
+    }
+
     private boolean validateEmail(String string) {
         if (string.equals("")) {
             til_email.setError("Enter Your Email Address");
@@ -329,7 +349,7 @@ public class Reg_Activity extends AppCompatActivity {
     }
     private boolean validateadhaar(String adhhar){
         if (adhhar.equals("")) {
-            til_mobile.setError("Enter Your Mobile Number");
+            adhaar.setError("Enter Your Adhaar card number");
             return false;
         }
         if (adhhar.length() != 12) {
@@ -407,7 +427,7 @@ public class Reg_Activity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String r) {
                 if(r.contains("Successful Register!!")){
-                    Toast.makeText(ctx,"Successful Register!!Verify yourself in nearby TC",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ctx,"Successfully Register!!Verify yourself in nearby TC",Toast.LENGTH_SHORT).show();
                     Intent i=new Intent(ctx, NavigationActivity.class);
                     startActivity(i);
                     finish();
