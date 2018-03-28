@@ -41,7 +41,8 @@
         <activity android:name=".OtpTCActivity" />
         <activity android:name=".NewPassActivity" />
         <activity android:name=".activity.TCNavActivity" />
-        <activity android:name=".ChangeActivity"></activity>
+        <activity android:name=".ChangeActivity" />
+        <activity android:name=".NewFindActivity"></activity>
     </application>
 
 </manifest>

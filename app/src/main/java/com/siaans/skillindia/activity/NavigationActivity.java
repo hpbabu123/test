@@ -19,6 +19,7 @@ import android.view.View;
 
 import com.siaans.skillindia.ExDialog;
 import com.siaans.skillindia.LoginActivity;
+import com.siaans.skillindia.NewFindActivity;
 import com.siaans.skillindia.R;
 import com.siaans.skillindia.Reg_Activity;
 import com.siaans.skillindia.Registerpage1Activity;
@@ -189,7 +190,7 @@ public class NavigationActivity extends AppCompatActivity {
                 return courseFragment;
 
             case 6:
-                Intent intent3 =new Intent(NavigationActivity.this, Registerpage1Activity.class);
+                Intent intent3 =new Intent(NavigationActivity.this, NewFindActivity.class);
                 startActivity(intent3);
                 navItemIndex=0;
                 CURRENT_TAG=TAG_HOME;

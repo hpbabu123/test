@@ -40,6 +40,9 @@ import com.siaans.skillindia.fragment.VarificationFragment;
 import com.siaans.skillindia.fragment.WebinarsFragment;
 import com.siaans.skillindia.other.CircleTransform;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class TCNavActivity extends AppCompatActivity {
     public SharedPreferences.Editor loginPrefsEditor;
     public  SharedPreferences loginPreferences;
@@ -54,7 +57,6 @@ public class TCNavActivity extends AppCompatActivity {
 
     public static int navItemIndex = 0;
 
-    private static final String TAG_NEWS = "news";
     private static final String TAG_WEBINAR="webinar";
     private static final String TAG_ATTEND="attendance";
     private static final String TAG_BATCH="batch";
@@ -114,12 +116,18 @@ public class TCNavActivity extends AppCompatActivity {
         ExDialog exDialog=new ExDialog();
         exDialog.show(getSupportFragmentManager(),"example dialog");
     }
-//    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+   @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     private void loadNavHeader() {
         // name, website
-        txtName.setText("Ankit");
-        txtWebsite.setText("www.ankittawaleinfo.com");
+        JSONObject jo= null;
+        try {
+            jo = new JSONObject(saveLogin);
+            txtName.setText(jo.getString("name"));
+            txtWebsite.setText(jo.getString("emailid"));
 
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         // loading header background image
         Glide.with(this).load(urlNavHeaderBg)
                 .crossFade()
@@ -180,9 +188,6 @@ public class TCNavActivity extends AppCompatActivity {
                 tcprofileFragment.setArguments(b);
 
                 return tcprofileFragment;
-            case 4:
-                NewsFragment newsFragment = new NewsFragment();
-                return newsFragment;
             case 2:
                 AttendanceFragment attendanceFragment= new AttendanceFragment();
                 return attendanceFragment;
@@ -222,10 +227,6 @@ public class TCNavActivity extends AppCompatActivity {
                     case R.id.nav_home:
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_PROFILE;
-                        break;
-                    case R.id.nav_news:
-                        navItemIndex = 4;
-                        CURRENT_TAG = TAG_NEWS;
                         break;
                     case R.id.nav_tc_Attendance:
                         navItemIndex = 2;
