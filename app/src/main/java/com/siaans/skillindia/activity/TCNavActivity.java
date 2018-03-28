@@ -40,6 +40,10 @@ import com.siaans.skillindia.fragment.VarificationFragment;
 import com.siaans.skillindia.fragment.WebinarsFragment;
 import com.siaans.skillindia.other.CircleTransform;
 
+import org.json.JSONException;//
+import org.json.JSONObject;//
+
+
 public class TCNavActivity extends AppCompatActivity {
     public SharedPreferences.Editor loginPrefsEditor;
     public  SharedPreferences loginPreferences;
@@ -117,9 +121,15 @@ public class TCNavActivity extends AppCompatActivity {
 //    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     private void loadNavHeader() {
         // name, website
-        txtName.setText("Ankit");
-        txtWebsite.setText("www.ankittawaleinfo.com");
-
+        JSONObject jo= null;//
+        try {//
+            jo = new JSONObject(saveLogin);//
+            txtName.setText(jo.getString("name"));///
+            txtWebsite.setText(jo.getString("emailid"));//
+//
+        } catch (JSONException e) {//
+            e.printStackTrace();//
+        }//
         // loading header background image
         Glide.with(this).load(urlNavHeaderBg)
                 .crossFade()
