@@ -233,7 +233,15 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this,"Not a Internet Connection",Toast.LENGTH_LONG).show();
 
             }
+            else if(r.contains("First Verify Yourself To Nearby TC")) {
+                send.setVisibility(View.INVISIBLE);
+                send.setIndeterminate(false);
+                loginButton.setVisibility(View.VISIBLE);
+                loginButton.setEnabled(true);
+                Toast.makeText(LoginActivity.this, "First Verify Yourself To Nearby TC", Toast.LENGTH_LONG).show();
+            }
             else{
+
                 loginPrefsEditor.putBoolean("saveLogin", true);
                 loginPrefsEditor.putString("username", email);
                 loginPrefsEditor.putString("password", pass1);
