@@ -416,6 +416,7 @@ public class Reg_Activity extends AppCompatActivity {
 
             }catch (Exception e){
                 e.printStackTrace();
+                Log.d("", "doInBackground: errrror");
             }
             return "No Interconnection";
         }
