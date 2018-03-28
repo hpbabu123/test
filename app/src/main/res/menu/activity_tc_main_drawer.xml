@@ -18,10 +18,6 @@
 
             android:title="Varification" />
         <item
-            android:id="@+id/nav_tc_news"
-
-            android:title="@string/nav_news" />
-        <item
             android:id="@+id/nav_tc_Webinars"
 
             android:title="webinars" />
