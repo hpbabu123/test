@@ -20,6 +20,7 @@ import android.view.View;
 import com.siaans.skillindia.ExDialog;
 import com.siaans.skillindia.LoginActivity;
 import com.siaans.skillindia.NewFindActivity;
+import com.siaans.skillindia.NewFindTCActivity;
 import com.siaans.skillindia.R;
 import com.siaans.skillindia.Reg_Activity;
 import com.siaans.skillindia.Registerpage1Activity;
