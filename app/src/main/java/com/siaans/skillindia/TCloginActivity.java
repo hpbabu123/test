@@ -207,7 +207,7 @@ public class TCloginActivity extends AppCompatActivity {
         protected void onPostExecute(String r) {
             Log.d("g", "doInBackground: "+r.toString());
             if(r.equals("Wrong Username or Password")){
-                send.setVisibility(View.INVISIBLE);
+                send.setVisibility(View.INVISIBLE);//.lkjhgfx
                 send.setIndeterminate(false);
                 loginButton.setVisibility(View.VISIBLE);
                 loginButton.setEnabled(true);
