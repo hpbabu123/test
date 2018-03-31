@@ -42,7 +42,9 @@
         <activity android:name=".NewPassActivity" />
         <activity android:name=".activity.TCNavActivity" />
         <activity android:name=".ChangeActivity" />
-        <activity android:name=".NewFindActivity"></activity>
+        <activity android:name=".NewFindActivity" />
+        <activity android:name=".NewFindTCActivity" />
+        <activity android:name=".NewsActivity"></activity>
     </application>
 
 </manifest>
