@@ -26,13 +26,13 @@ public class NewFindTCActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_find_tc);
+        setContentView(R.layout.activity_new_find);
         init();
     }
 
     void init() {
-        citySpinner = (Spinner) findViewById(R.id.citySpinner);
-        stateSpinner = (Spinner) findViewById(R.id.stateSpinner);
+        citySpinner = (Spinner) findViewById(R.id.s);
+        stateSpinner = (Spinner) findViewById(R.id.s1);
 
         stringArrayState = new ArrayList<String>();
         stringArrayCity = new ArrayList<String>();
