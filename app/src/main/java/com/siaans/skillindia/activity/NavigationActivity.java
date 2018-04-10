@@ -1,5 +1,6 @@
 package com.siaans.skillindia.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -191,7 +192,7 @@ public class NavigationActivity extends AppCompatActivity {
                 return courseFragment;
 
             case 6:
-                Intent intent3 =new Intent(NavigationActivity.this, NewFindActivity.class);
+                Intent intent3 =new Intent(NavigationActivity.this, NewFindTCActivity.class);
                 startActivity(intent3);
                 navItemIndex=0;
                 CURRENT_TAG=TAG_HOME;

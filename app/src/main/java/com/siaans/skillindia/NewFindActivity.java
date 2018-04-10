@@ -21,8 +21,8 @@ public class NewFindActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_find);
 
-        s=(Spinner)findViewById(R.id.s);
-        s1=(Spinner)findViewById(R.id.s1);
+        s=(Spinner)findViewById(R.id.state);
+        s1=(Spinner)findViewById(R.id.city);
 
 
         final ArrayAdapter<String> ia=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,india);
@@ -41,7 +41,7 @@ public class NewFindActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 switch (parent.getId()) {
-                    case R.id.s: {
+                    case R.id.state: {
                         if (india[position].equals("Maharashtra")) {
 
                             ma.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

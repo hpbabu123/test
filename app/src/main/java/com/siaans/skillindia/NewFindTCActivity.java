@@ -21,6 +21,8 @@ public class NewFindTCActivity extends AppCompatActivity {
     ArrayList<String> stringArrayState ;
     ArrayList<String> stringArrayCity = new ArrayList<String>();
     String spinnerStateValue, city;
+    ArrayAdapter<String> adapterCity;
+
 
 
     @Override
@@ -31,15 +33,14 @@ public class NewFindTCActivity extends AppCompatActivity {
     }
 
     void init() {
-        citySpinner = (Spinner) findViewById(R.id.s);
-        stateSpinner = (Spinner) findViewById(R.id.s1);
+        citySpinner = (Spinner) findViewById(R.id.city);
+        stateSpinner = (Spinner) findViewById(R.id.state);
 
         stringArrayState = new ArrayList<String>();
         stringArrayCity = new ArrayList<String>();
 
         //set city adapter
-        final ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this, R.layout.spinner_layout, stringArrayCity);
-        adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterCity = new ArrayAdapter<String>(this, R.layout.spinner_layout, R.id.txt, stringArrayCity);
         citySpinner.setAdapter(adapterCity);
 
         //Get state json value from assets folder
@@ -49,27 +50,37 @@ public class NewFindTCActivity extends AppCompatActivity {
 
             for (int i = 0; i < m_jArry.length(); i++) {
                 JSONObject jo_inside = m_jArry.getJSONObject(i);
-
                 String state = jo_inside.getString("State");
+
                 String id = jo_inside.getString("id");
+
 
                 stringArrayState.add(state);
 
+
             }
-        } catch (JSONException e) {
+            Log.d("xs", "init: " + stringArrayState.size());
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.spinner_layout, R.id.txt, stringArrayState);
+            stateSpinner.setAdapter(adapter);
+        } catch (Exception e) {
+            Log.d("", "init: "+e.toString());
             e.printStackTrace();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout,R.id.txt, stringArrayState);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        stateSpinner.setAdapter(adapter);
+
+
 
 
         //state spinner item selected listner with the help of this we get selected value
 
         stateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("xs", "init: ");
+
                 Object item = parent.getItemAtPosition(position);
+                Log.d("xs", "init: ");
+
                 String Text = stateSpinner.getSelectedItem().toString();
+                Log.d("xs", "init: ");
 
 
                 spinnerStateValue = String.valueOf(stateSpinner.getSelectedItem());
@@ -94,7 +105,7 @@ public class NewFindTCActivity extends AppCompatActivity {
                     //notify adapter city for getting selected value according to state
                     adapterCity.notifyDataSetChanged();
 
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 

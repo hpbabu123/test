@@ -122,7 +122,7 @@ public class Reg_Activity extends AppCompatActivity {
                         b.put("password", password);
                         b.put("email", email);
                         b.put("mobile", mobile);
-                       // b.put("profile", profile);
+                        b.put("profile", profile);
                         b.put("adhaar", adhharc);
                         b.put("DOB", dob_date);
                         b.put("Gender",gend );
@@ -429,6 +429,9 @@ public class Reg_Activity extends AppCompatActivity {
         protected void onPostExecute(String r) {
             Log.d("kdcn", "onPostExecute: "+r);
                 if(r.contains("Successful Register!!")){
+                    String[] tid = r.split(":");
+
+
                     Toast.makeText(ctx,"Successfully Register!!Verify yourself in nearby TC",Toast.LENGTH_SHORT).show();
                     Intent i=new Intent(ctx, NavigationActivity.class);
                     startActivity(i);

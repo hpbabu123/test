@@ -87,7 +87,7 @@ public class ProfileFragment extends Fragment {
             JSONObject jo= new JSONObject(str);
             img = root.findViewById(R.id.profileImg);
             Context c= getActivity();
-            Glide.with(this).load("http://159.65.144.10/miniproject/profileImg/TID_"+jo.getString("tid")+".JPG")
+            Glide.with(this).load("http://159.65.144.10/miniproject/TID_"+jo.getString("tid")+".jpg")
                     .crossFade()
                     .thumbnail(0.5f)
                     .bitmapTransform(new CircleTransform(c))

@@ -44,8 +44,6 @@ public class Registerpage1Activity extends AppCompatActivity implements Location
     Button register;
     //RequestQueue requestQueue;
     String HttpUrl = "http://159.65.144.10/miniproject/insertion.php";
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registerpage1);
@@ -54,19 +52,7 @@ public class Registerpage1Activity extends AppCompatActivity implements Location
         state = findViewById(R.id.state);
         ci=findViewById(R.id.spinner2);
         register=findViewById(R.id.Register);
-        Bundle bundle = getIntent().getExtras();
-         name = bundle.getString("name");
-         Log.d("name",name);
-         username = bundle.getString("username");
-         Log.d("username",username);
-         password = bundle.getString("password");
-         Log.d("password",password);
-         email = bundle.getString("email");
-         Log.d("email",email);
-         mobile = bundle.getString("mobile");
-         Log.d("mobile",mobile);
-         profile = bundle.getString("profile");
-         Log.d("profile","done"+profile);
+
 //        requestQueue = Volley.newRequestQueue(Registerpage1Activity.this);
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -92,7 +78,6 @@ public class Registerpage1Activity extends AppCompatActivity implements Location
         });
 
     }
-
     void getLocation() {
         try {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
