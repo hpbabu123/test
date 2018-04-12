@@ -201,7 +201,7 @@ public class ChangeActivity extends AppCompatActivity {
             }catch (Exception e) {
                 Log.d("", "doInBackground: +error");
             }
-            return null;
+            return null;//
         }
 
         @Override

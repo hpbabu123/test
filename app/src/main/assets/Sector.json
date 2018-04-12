@@ -1,0 +1,144 @@
+{
+	"sectorlist": [
+    {
+      "id": 0,
+      "Sector": "Select Sector..."
+    },
+    {
+      "id": 1,
+      "Sector": "Agriculture"
+    },
+    {
+      "id": 2,
+      "Sector": "Apparel, Madeups & Home Furnishing"
+    },
+    {
+      "id": 3,
+      "Sector": "Automotive"
+    },
+    {
+      "id": 4,
+      "Sector": "Beauty and Wellness"
+    },
+    {
+      "id": 5,
+      "Sector": "BFSI (Banking, Financial Services & Insurance)"
+    },
+    {
+      "id": 6,
+      "Sector": "Capital Goods"
+    },
+    {
+      "id": 7,
+      "Sector": "Construction"
+    },
+    {
+      "id": 8,
+      "Sector": "Domestic Workers"
+    },
+    {
+      "id": 9,
+      "Sector": "Earthmoving & Infrastructure Building"
+    },
+    {
+      "id": 10,
+      "Sector": "Electronics & Hardware"
+    },
+     {
+      "id": 11,
+      "Sector": "Food Processing"
+    },
+    {
+      "id": 12,
+      "Sector": "Furniture and Fitting"
+    },
+    {
+      "id": 13,
+      "Sector": "Gems and Jewellery"
+    },
+    {
+      "id": 14,
+      "Sector": "Green Jobs"
+    },
+    {
+      "id": 15,
+      "Sector": "Handicrafts"
+    },
+    {
+      "id": 16,
+      "Sector": "Healthcare"
+    },
+    {
+      "id": 17,
+      "Sector": "Iron and Steel"
+    },
+    {
+      "id": 18,
+      "Sector": "IT and ITES"
+    },
+    {
+      "id": 19,
+      "Sector": "Leather"
+    },
+    {
+      "id": 20,
+      "Sector": "Life Science"
+    },
+    {
+      "id": 21,
+      "Sector": "Logistics"
+    },
+    {
+      "id": 22,
+      "Sector": "Media and Entertainment"
+    },
+    {
+      "id": 23,
+      "Sector": "Mining"
+    },
+    {
+      "id": 24,
+      "Sector": "Paints & Coatings"
+    },
+    {
+      "id": 25,
+      "Sector": "People with Disability"
+  	},
+    {
+      "id": 26,
+      "Sector": "Plumbing"
+    },
+    {
+      "id": 27,
+      "Sector": "Power Industry"
+    },
+    {
+      "id": 28,
+      "Sector": "Retail"
+    },
+    {
+      "id": 29,
+      "Sector": "Rubber"
+    },
+    {
+      "id": 30,
+      "Sector": "Security Services"
+    },
+    {
+      "id": 31,
+      "Sector": "Sports"
+    },
+    {
+      "id": 32,
+      "Sector": "Telecom"
+    },
+    {
+      "id": 33,
+      "Sector": "Textiles & Handloom"
+    },
+    {
+      "id": 34,
+      "Sector": "Tourism & Hospitality"
+    }
+	]
+}
