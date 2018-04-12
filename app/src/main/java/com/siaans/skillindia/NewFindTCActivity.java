@@ -353,15 +353,15 @@ public class NewFindTCActivity extends AppCompatActivity implements LocationList
 
     @Override
     public void onLocationChanged(Location location) {
+        int flag=1;
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             String[] State= stringArrayState.toArray(new String[stringArrayState.size()]);
-            Log.d(";", "onLocationChanged: "+State.length);
             for (int i=0;i<State.length;i++) {
-                Log.d("kj"+State[i],"lkjhg"+addresses.get(0).getAdminArea());
                 if(State[i].equals(addresses.get(0).getAdminArea())){
                     stateSpinner.setSelection(i);
+                    flag=0;
                     break;
 //                    int city= this.getResources().getIdentifier(addresses.get(0).getAdminArea()+"_items", "array", this.getPackageName());
 //                    Log.d("kj", "onLocationChanged: "+city);
@@ -372,16 +372,24 @@ public class NewFindTCActivity extends AppCompatActivity implements LocationList
 //                    citySpinner.setAdapter(spinnerArrayAdapter);
                 }
             }
-            String[] city= stringArrayCity.toArray(new String[stringArrayCity.size()]);
-            for (int j=0;j<city.length;j++) {
-                Log.d(""+city[j],""+addresses.get(0).getLocality());
-                if(city[j].equals(addresses.get(0).getLocality())){
-                    citySpinner.setSelection(j);
-                    //    break;
-                }
+            if(flag==1){
+                Toast.makeText(NewFindTCActivity.this,addresses.get(0).getAdminArea()+" is not Available in list",Toast.LENGTH_SHORT).show();
             }
+            else {
+                flag = 1;
+                String[] city = stringArrayCity.toArray(new String[stringArrayCity.size()]);
+                for (int j = 0; j < city.length; j++) {
+                    Log.d("" + city[j], "" + addresses.get(0).getLocality());
+                    if (city[j].equals(addresses.get(0).getLocality())) {
+                        citySpinner.setSelection(j);
+                        break;
+                    }
+                }
+                if (flag == 1) {
+                    Toast.makeText(NewFindTCActivity.this, addresses.get(0).getLocality() + " is not Available in list.Try Again", Toast.LENGTH_SHORT).show();
+                }
 
-
+            }
         }catch(Exception e)
         {
             e.printStackTrace();

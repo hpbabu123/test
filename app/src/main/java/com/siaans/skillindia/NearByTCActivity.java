@@ -62,37 +62,40 @@ public class NearByTCActivity extends AppCompatActivity {
                             //we have the array named hero inside the object
                             //so here we are getting that json array
                             JSONArray heroArray = obj.getJSONArray("response_server");
-
-                            //now looping through all the elements of the json array
-                            for (int i = 0; i < heroArray.length(); i++) {
-                                //getting the json object of the particular index inside the array
-                                JSONObject heroObject = heroArray.getJSONObject(i);
-
-                                //creating a hero object and giving them the values from json object
-                                TCenter hero = new TCenter(heroObject.getString("tp"),
-                                        heroObject.getString("tcname"),
-                                        heroObject.getString("tcspocname"),
-                                        heroObject.getString("mobno"),
-                                        heroObject.getString("emailid"),
-                                        heroObject.getString("pincode"),
-                                        heroObject.getString("address"),
-                                        heroObject.getString("bid"),
-                                        heroObject.getString("stime"),
-                                        heroObject.getString("etime"),
-                                        heroObject.getString("batchname"),
-                                        heroObject.getString("totalseats"),
-                                        heroObject.getString("filled"));
-
-                                //adding the hero to herolist
-                                heroList.add(hero);
+                            if(heroArray.length()==0){
+                                Toast.makeText(NearByTCActivity.this,"No TC Available Nearby",Toast.LENGTH_LONG);
                             }
+                            else {
+                                //now looping through all the elements of the json array
+                                for (int i = 0; i < heroArray.length(); i++) {
+                                    //getting the json object of the particular index inside the array
+                                    JSONObject heroObject = heroArray.getJSONObject(i);
 
-                            //creating custom adapter object
-                            ListViewAdapter adapter = new ListViewAdapter(heroList, getApplicationContext());
+                                    //creating a hero object and giving them the values from json object
+                                    TCenter hero = new TCenter(heroObject.getString("tp"),
+                                            heroObject.getString("tcname"),
+                                            heroObject.getString("tcspocname"),
+                                            heroObject.getString("mobno"),
+                                            heroObject.getString("emailid"),
+                                            heroObject.getString("pincode"),
+                                            heroObject.getString("address"),
+                                            heroObject.getString("bid"),
+                                            heroObject.getString("stime"),
+                                            heroObject.getString("etime"),
+                                            heroObject.getString("batchname"),
+                                            heroObject.getString("totalseats"),
+                                            heroObject.getString("filled"));
 
-                            //adding the adapter to listview
-                            listView.setAdapter(adapter);
+                                    //adding the hero to herolist
+                                    heroList.add(hero);
+                                }
 
+                                //creating custom adapter object
+                                ListViewAdapter adapter = new ListViewAdapter(heroList, getApplicationContext());
+
+                                //adding the adapter to listview
+                                listView.setAdapter(adapter);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -101,8 +104,9 @@ public class NearByTCActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        progressBar.setVisibility(View.INVISIBLE);
                         //displaying the error in toast if occurrs
-                        Toast.makeText(getApplicationContext(), error.getMessage()+"fuck up", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Error"+error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 

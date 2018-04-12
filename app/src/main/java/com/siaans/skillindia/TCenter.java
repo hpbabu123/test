@@ -5,7 +5,7 @@ package com.siaans.skillindia;
  */
 
 public class TCenter {
-    String tp, tcname, tcspocname, mobno, emailid, pincode, address, bid, stime, etime, batchname;
+    private String tp, tcname, tcspocname, mobno, emailid, pincode, address, bid, stime, etime, batchname;
     String seats;
 
     public TCenter(String tp,String tcname,String tcspocname,String mobno,String emailid,String pincode,String address,String bid,String stime,String etime,String batchname,String totalseats,String filled) {

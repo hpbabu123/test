@@ -11,6 +11,7 @@
 
 
     <ListView
+        android:choiceMode="singleChoice"
         android:id="@+id/TCItems"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
