@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.siaans.skillindia.fragment.CertificateFragment">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,10 +11,13 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="103dp"
-            android:text="No Certificate Available" />
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="210dp"
+            android:text="No Certificate Available"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
     </RelativeLayout>
 
 </FrameLayout>

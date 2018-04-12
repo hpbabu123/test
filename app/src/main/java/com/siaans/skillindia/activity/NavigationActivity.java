@@ -1,13 +1,11 @@
 package com.siaans.skillindia.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -20,11 +18,9 @@ import android.view.View;
 
 import com.siaans.skillindia.ExDialog;
 import com.siaans.skillindia.LoginActivity;
-import com.siaans.skillindia.NewFindActivity;
 import com.siaans.skillindia.NewFindTCActivity;
 import com.siaans.skillindia.R;
 import com.siaans.skillindia.Reg_Activity;
-import com.siaans.skillindia.Registerpage1Activity;
 import com.siaans.skillindia.TCloginActivity;
 import com.siaans.skillindia.fragment.CourseFragment;
 import com.siaans.skillindia.fragment.HomeFragment;

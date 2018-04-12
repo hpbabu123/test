@@ -1,0 +1,115 @@
+{
+  "courselist": [
+
+    {
+      "id": 1,
+      "course": "Animal Health Worker",
+      "Sector": "Agriculture"
+    },
+    {
+      "id": 2,
+      "course": "Aquaculture Worker",
+      "Sector": "Agriculture"
+    },
+    {
+      "id": 3,
+      "course": "Dairy Farmer Entrepreneur",
+      "Sector": "Agriculture"
+    },
+    {
+      "id": 4,
+      "course": "Gardener",
+      "Sector": "Agriculture"
+    },
+    {
+      "id": 5,
+      "course": "Green House Operator",
+      "Sector": "Agriculture"
+    },
+    {
+      "id": 6,
+      "course": "Cutting Supervisor",
+      "Sector": "Apparel, Madeups & Home Furnishing"
+    },
+    {
+      "id": 7,
+      "course": "Export Assistant",
+      "Sector": "Apparel, Madeups & Home Furnishing"
+    },
+    {
+      "id": 8,
+      "course": "Export Executive",
+      "Sector": "Apparel, Madeups & Home Furnishing"
+    },
+    {
+      "id": 9,
+      "course": "Embroidery Manchine Opretator",
+      "Sector": "Apparel, Madeups & Home Furnishing"
+    },
+    {
+      "id": 10,
+      "course": "Finisher",
+      "Sector": "Apparel, Madeups & Home Furnishing"
+    },
+    {
+      "id": 11,
+      "course": "Automotive Service Technician Two & Three Wheelers",
+      "Sector": " Automotive"
+    },
+    {
+      "id": 12,
+      "course": "Auto E-Rickshaw Driver Service Technician",
+      "Sector": " Automotive"
+    },
+    {
+      "id": 13,
+      "course": "Welding & Quality Technician",
+      "Sector": " Automotive"
+    },
+    {
+      "id": 14,
+      "course": "Assistant Beauty Therapist",
+      "Sector": "Beauty and Wellness"
+    },
+    {
+      "id": 15,
+      "course": "Assistant Hair Stylist",
+      "Sector": "Beauty and Wellness"
+    },
+    {
+      "id": 16,
+      "course": "Accounts Executive (Payroll)",
+      "Sector": "BFSI (Banking, Financial Services & Insurance) "
+    },
+    {
+      "id": 17,
+      "course": "Equity Dealer",
+      "Sector": "BFSI (Banking, Financial Services & Insurance) "
+    },
+    {
+      "id": 18,
+      "course": "CNC Operator Turning",
+      "Sector": "Capital Goods"
+    },
+    {
+      "id": 19,
+      "course": "Draughtsman – Mechanical",
+      "Sector": "Capital Goods"
+    },
+    {
+      "id": 20,
+      "course": "Assistant Electrician",
+      "Sector": "Construction"
+    },
+    {
+      "id": 21,
+      "course": "Assistant Mason",
+      "Sector": "Construction"
+    },
+    {
+      "id": 22,
+      "course": "solar pump technician",
+      "Sector": "Agriculture"
+    }
+  ]
+}
