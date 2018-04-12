@@ -94,7 +94,7 @@ public class NearByTCActivity extends AppCompatActivity {
                                 ListViewAdapter adapter = new ListViewAdapter(heroList, getApplicationContext());
 
                                 //adding the adapter to listview
-                                listView.setAdapter(adapter);
+                                listView.setAdapter(adapter);//
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
